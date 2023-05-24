@@ -122,8 +122,12 @@ var lowerCraneSteam= [
 ]
 
 //다시
-// gl.drawArrays(gl.TRIANGLE_FAN, 0 ,8),
-// gl.drawArrays(gl.TRIANGLE_FAN, 8 ,10),
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0 ,8),
+        // gl.drawArrays(gl.TRIANGLE_FAN, 8 ,10),
+        // gl.drawArrays(gl.TRIANGLE_FAN, 18 ,10),
+        // gl.drawArrays(gl.TRIANGLE_FAN, 28,10),
+        // gl.drawArrays(gl.TRIANGLE_FAN, 38,8),
+
 var craneTorso = [
      // TOP
      vec3(0.0, 0.5, 0.0),
@@ -165,7 +169,7 @@ var craneTorso = [
      vec3(0.7, 0.5, 0.0),
      vec3(0.3, 0.5, -0.5),
 
-     vec3(1.0, 0.0, 0.0),
+     vec3(-1.0, 0.0, 0.0),
      vec3(-0.7, 0.5, 0.0),
      vec3(-0.3, 0.5, -0.5),
      vec3(-0.6, 0.0, -0.8),
@@ -175,7 +179,6 @@ var craneTorso = [
      vec3(-0.6, 0.0, 0.8),
      vec3(-0.3, 0.5, 0.5),
      vec3(-0.7, 0.5, 0.0),
-
      
 
      //BOTTOM
