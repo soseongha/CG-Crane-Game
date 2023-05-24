@@ -11,7 +11,6 @@ function initModel()
     
 ]
 
-
 return vertices;
 
 }
