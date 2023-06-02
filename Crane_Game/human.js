@@ -90,12 +90,13 @@ var head_base = [
 
 ]
 
-/*머리: n개의 vertex*/
+/*머리: 768개의 vertex*/
 //tetrahedron()을 호출하면 제대로 된 머리 vertex들이 head[]에 push됨
 var head = []
 var head_index = 0
-var numTimesToSubdivide = 3;
-//tetrahedron(head_base[0],head_base[1],head_base[2],head_base[3],numTimesToSubdivide)
+var numTimesToSubdivide_head = 3;
+tetrahedron(head,head_base[0],head_base[1],head_base[2],head_base[3],numTimesToSubdivide_head)
+
 
 /*윗팔-왼쪽: 60개의 vertex*/
 var upperArmLeft = [
@@ -776,31 +777,31 @@ var footRight = [
     vec4(1,-1,-1,1),
 ]
 
-function tetrahedron(a, b, c, d, n){
-    divideTriangle(a,b,c,n);
-    divideTriangle(d,c,b,n);
-    divideTriangle(a,d,b,n);
-    divideTriangle(a,c,d,n);
-}
+// function tetrahedron(a, b, c, d, n){
+//     divideTriangle(a,b,c,n);
+//     divideTriangle(d,c,b,n);
+//     divideTriangle(a,d,b,n);
+//     divideTriangle(a,c,d,n);
+// }
 
-function divideTriangle(a,b,c,count){
-    if(count > 0){
-        var ab = normalize(mix(a,b,0.5), true);
-        var ac = normalize(mix(a,c,0.5), true);
-        var bc = normalize(mix(b,c,0.5), true);
-        divideTriangle(a,ab,ac,count-1);
-        divideTriangle(ab,b,bc,count-1);
-        divideTriangle(bc,c,ac,count-1);
-        divideTriangle(ab,bc,ac,count-1);
-    }
-    else{
-        triangle(a,b,c);
-    }
-}
+// function divideTriangle(a,b,c,count){
+//     if(count > 0){
+//         var ab = normalize(mix(a,b,0.5), true);
+//         var ac = normalize(mix(a,c,0.5), true);
+//         var bc = normalize(mix(b,c,0.5), true);
+//         divideTriangle(a,ab,ac,count-1);
+//         divideTriangle(ab,b,bc,count-1);
+//         divideTriangle(bc,c,ac,count-1);
+//         divideTriangle(ab,bc,ac,count-1);
+//     }
+//     else{
+//         triangle(a,b,c);
+//     }
+// }
 
-function triangle(a,b,c){
-    head.push(vec4(a));
-    head.push(vec4(b));
-    head.push(vec4(c));
-    head_index += 3;
-}
+// function triangle(a,b,c){
+//     head.push(vec4(a));
+//     head.push(vec4(b));
+//     head.push(vec4(c));
+//     head_index += 3;
+// }
