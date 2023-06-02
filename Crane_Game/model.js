@@ -1,4 +1,4 @@
-import {upperCraneSteam} from "./crane.js"
+//import {upperCraneSteam} from "./crane.js"
 
 function initModel()
 {
@@ -10,10 +10,25 @@ function initModel()
     var vertices = [
         
     ]
-    vertices.concat(upperCraneSteam)
+    vertices.concat(head)
 
 
 
     return vertices;
+
+}
+
+/*normal 또한 vertex와 같이 생성하기*/
+function initNormal()
+{
+ 
+    var normals = [
+        
+    ]
+    normals.concat(normal_head)
+
+
+
+    return normals;
 
 }

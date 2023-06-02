@@ -93,9 +93,9 @@ var head_base = [
 /*머리: 768개의 vertex*/
 //tetrahedron()을 호출하면 제대로 된 머리 vertex들이 head[]에 push됨
 var head = []
-var head_index = 0
+var normal_head = []
 var numTimesToSubdivide_head = 3;
-tetrahedron(head,head_base[0],head_base[1],head_base[2],head_base[3],numTimesToSubdivide_head)
+tetrahedron(head,normal_head,head_base[0],head_base[1],head_base[2],head_base[3],numTimesToSubdivide_head)
 
 
 /*윗팔-왼쪽: 60개의 vertex*/
