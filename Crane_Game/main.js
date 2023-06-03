@@ -1,4 +1,5 @@
 "use strict";
+// import {initModel} from "./model.js";
 
 var gl; //gl은 WEBGL context object이다
 
@@ -49,6 +50,8 @@ window.onload = function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
+    gl.enable(gl.DEPTH_TEST);
+   
     //light, modelviewMatrix...
     modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix");
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
@@ -66,11 +69,11 @@ window.onload = function init()
     // 버퍼에 선언했던 점들을 넘기는 단계
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(vertices), gl.DYNAMIC_DRAW ); 
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW ); 
 
     // Associate out shader variables with our data buffer
     var vPosition = gl.getAttribLocation( program, "vPosition" );
-    gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
+    gl.vertexAttribPointer( vPosition, 3, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
     //Normal vector
@@ -102,12 +105,24 @@ window.onload = function init()
     render();
 };
 
+function drawCrane(){
+    gl.drawArrays(gl.TRIANGLE_STRIP,0 ,24);
+    
+}
+
 
 function render() {
     
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
-    gl.drawArrays( gl.TRIANGLES, 0, 1);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+
+    gl.drawArrays( gl.TRIANGLES, 0, 3);
+    // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,3);
+
+    setTimeout(
+        function(){requestAnimationFrame(render);}, 10000
+    );
 
     window.requestAnimationFrame(render);
 }
