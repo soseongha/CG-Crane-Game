@@ -16,9 +16,15 @@ function initModel()
     vertices = vertices + leftCraneUpper + leftCraneMedium + leftCraneLower;
     vertices = vertices + rightCraneUpper + rightCraneMedium + rightCraneLower;
     
+
+    vertices.concat(head)
+
+
+
     return vertices;
 
 }
+
 
 
 // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,24)
@@ -464,3 +470,19 @@ var rightCraneLower =[
 ]
 
 // export default {initModel}
+
+/*normal 또한 vertex와 같이 생성하기*/
+function initNormal()
+{
+ 
+    var normals = [
+        
+    ]
+    normals.concat(normal_head)
+
+
+
+    return normals;
+
+}
+
