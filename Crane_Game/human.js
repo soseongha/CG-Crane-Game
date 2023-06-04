@@ -181,7 +181,7 @@ var humanHead_base = [
 
 ]
 
-/*머리: n개의 vertex*/
+/*머리: 768개의 vertex*/
 //tetrahedron()을 호출하면 제대로 된 머리 vertex들이 head[]에 push됨
 var humanHead = []
 var normal_humanHead = []

@@ -1,4 +1,5 @@
 "use strict";
+// import {initModel} from "./model.js";
 
 var gl; //gl은 WEBGL context object이다
 
@@ -6,9 +7,24 @@ var gl; //gl은 WEBGL context object이다
 //matrix 
 var modelViewMatrixLoc;
 var projectionMatrixLoc;
-var modelViewMatrix = scalem(0.01,0.01,0.01); //0.5,0.5,0.5
+var modelViewMatrix = scalem(0.01,0.01,0.01); //mat4()
 var projectionViewMatrix = perspective(100, 1, 0, 1);
 
+//shading
+var lightPosition = vec4(1.0, 1.0, 1.0, 0.0);
+var lightAmbient = vec4(0.3,0.5, 0.5, 1,0);
+var lightDiffuse = vec4(1.0, 1.0, 1.0, 1.0);
+var lightSpecular = vec4(1.0, 1.0, 1.0, 1.0);
+var lightLoc;
+projectionViewMatrix[3][3] = 1;
+var materialAmbient = vec4(1.0, 0.0, 1.0, 1.0);
+var materialDiffuse = vec4(1.0, 0.8, 0.0, 1.0);
+var materialSpecular = vec4(1.0, 0.8, 0.0, 1.0);
+var materialShininess = 90.0;
+var ambientProduct = mult(lightAmbient, materialAmbient);
+var diffuseProduct = mult(lightDiffuse, materialDiffuse);
+var specularProduct = mult(lightSpecular, materialSpecular);
+var drag = false;
 /**-------------------------- */
 
 window.onload = function init() 
@@ -20,11 +36,8 @@ window.onload = function init()
 
     
     /*------verctices 생성하기------*/
-    //var vertices = humanHead.concat(humanTorso);
-    //var normals = normal_humanHead.concat(normal_humanTorso);
     var vertices = humanTorso.concat(humanHead);
     var normals = normal_humanTorso.concat(normal_humanHead);
-    //var normals =initNormal();
     /*------------------------------*/
 
     //  Configure WebGL
@@ -35,10 +48,26 @@ window.onload = function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
+    gl.enable(gl.DEPTH_TEST);
+   
+    //light, modelviewMatrix...
+    modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix");
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+
+    projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix");
+    gl.uniformMatrix4fv(projectionMatrixLoc, false, flatten(projectionViewMatrix));
+
+    lightLoc = gl.getUniformLocation(program, "ambientProduct")
+    gl.uniform4fv(lightLoc, flatten(ambientProduct));
+    gl.uniform4fv(gl.getUniformLocation(program, "diffuseProduct"), flatten(diffuseProduct));
+    gl.uniform4fv(gl.getUniformLocation(program, "specularProduct"), flatten(specularProduct));
+    gl.uniform4fv(gl.getUniformLocation(program, "lightPosition"), flatten(lightPosition));
+    gl.uniform1f(gl.getUniformLocation(program, "shininess"), materialShininess);
+
     // 버퍼에 선언했던 점들을 넘기는 단계
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(vertices), gl.DYNAMIC_DRAW ); 
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW ); 
 
     // Associate out shader variables with our data buffer
     var vPosition = gl.getAttribLocation( program, "vPosition" );
@@ -73,6 +102,11 @@ window.onload = function init()
     render();
 };
 
+function drawCrane(){
+    gl.drawArrays(gl.TRIANGLE_STRIP,0 ,24);
+    
+}
+
 
 
 function render() {
@@ -84,6 +118,15 @@ function render() {
     cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
     cur_vertex = drawHumanHead(cur_vertex);
     
+
+    // gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+
+    // gl.drawArrays( gl.TRIANGLES, 0, 3);
+    // // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,3);
+
+    // setTimeout(
+    //     function(){requestAnimationFrame(render);}, 10000
+    // );
 
     window.requestAnimationFrame(render);
 }
