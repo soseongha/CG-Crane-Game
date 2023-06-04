@@ -8,6 +8,10 @@ var gl; //gl은 WEBGL context object이다
 var modelViewMatrixLoc;
 var projectionMatrixLoc;
 var modelViewMatrix = scalem(0.01,0.01,0.01); //mat4()
+var eye = vec3(0.0,0.0,1.0);
+var at = vec3(0.0,0.0,0.0);
+var up = vec3(0.0,0.1,0.0);
+modelViewMatrix = mult(modelViewMatrix, lookAt(eye, at, up)); //viewing
 var projectionViewMatrix = perspective(100, 1, 0, 1);
 
 //shading
