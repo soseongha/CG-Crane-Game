@@ -10,6 +10,7 @@ function initModel()
     var vertices = [
         
     ]
+
     //Crane Steam
     vertices =  upperCraneSteam + craneSteam + lowerCraneSteam;
     vertices = vertices + craneTorso + lowerCraneTorso;

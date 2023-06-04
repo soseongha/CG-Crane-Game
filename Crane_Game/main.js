@@ -7,7 +7,7 @@ var gl; //gl은 WEBGL context object이다
 //matrix 
 var modelViewMatrixLoc;
 var projectionMatrixLoc;
-var modelViewMatrix = mat4();
+var modelViewMatrix = scalem(0.01,0.01,0.01); //mat4()
 var projectionViewMatrix = perspective(100, 1, 0, 1);
 
 //shading
@@ -36,10 +36,8 @@ window.onload = function init()
 
     
     /*------verctices 생성하기------*/
-    var vertices = initModel();
-    var normals = [
-
-    ]
+    var vertices = humanTorso.concat(humanHead);
+    var normals = normal_humanTorso.concat(normal_humanHead);
     /*------------------------------*/
 
     //  Configure WebGL
@@ -73,7 +71,7 @@ window.onload = function init()
 
     // Associate out shader variables with our data buffer
     var vPosition = gl.getAttribLocation( program, "vPosition" );
-    gl.vertexAttribPointer( vPosition, 3, gl.FLOAT, false, 0, 0 );
+    gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
     //Normal vector
@@ -82,9 +80,8 @@ window.onload = function init()
     gl.bufferData(gl.ARRAY_BUFFER, flatten(normals), gl.STATIC_DRAW);
 
     var vNormal = gl.getAttribLocation( program, "vNormal" );
-    gl.vertexAttribPointer( vNormal, 3 , gl.FLOAT, false, 0, 0 );
+    gl.vertexAttribPointer( vNormal, 4 , gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vNormal );
-
 
     /*canvas 사이즈 유지하기*/
     window.onresize = function() {
@@ -101,7 +98,7 @@ window.onload = function init()
      * 
      * 
      */
-
+    console.log(vertices);
     render();
 };
 
@@ -111,18 +108,25 @@ function drawCrane(){
 }
 
 
+
 function render() {
     
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+    //gl.drawArrays( gl.TRIANGLES, 0, 768);
+    var cur_vertex = 0; //현재 몇 번째 vertex까지 draw했는지 체크하기 위한 변수
+    cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
+    cur_vertex = drawHumanHead(cur_vertex);
+    
 
-    gl.drawArrays( gl.TRIANGLES, 0, 3);
-    // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,3);
+    // gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
-    setTimeout(
-        function(){requestAnimationFrame(render);}, 10000
-    );
+    // gl.drawArrays( gl.TRIANGLES, 0, 3);
+    // // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,3);
+
+    // setTimeout(
+    //     function(){requestAnimationFrame(render);}, 10000
+    // );
 
     window.requestAnimationFrame(render);
 }
