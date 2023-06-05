@@ -8,13 +8,15 @@ function initModel()
  // 이어 붙이길 원하는 list. 파일에서 export{이름}해주고 위에 처럼 import 하면 된다.
  
     var vertices = [
-        
+        vec3(-1.0,0,0),
+        vec3(1.0, 0, 0),
+        vec3(0, 1, 0)
     ]
     //Crane Steam
-    vertices =  upperCraneSteam + craneSteam + lowerCraneSteam;
-    vertices = vertices + craneTorso + lowerCraneTorso;
-    vertices = vertices + leftCraneUpper + leftCraneMedium + leftCraneLower;
-    vertices = vertices + rightCraneUpper + rightCraneMedium + rightCraneLower;
+    vertices =  vertices + upperCraneSteam + craneSteam + lowerCraneSteam;
+    // vertices = vertices + craneTorso + lowerCraneTorso;
+    // vertices = vertices + leftCraneUpper + leftCraneMedium + leftCraneLower;
+    // vertices = vertices + rightCraneUpper + rightCraneMedium + rightCraneLower;
     
 
     vertices.concat(head)

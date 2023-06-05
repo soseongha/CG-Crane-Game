@@ -36,7 +36,7 @@ window.onload = function init()
 
     
     /*------verctices 생성하기------*/
-    var vertices = initModel();
+    var vertices = []
     var normals = [
 
     ]
@@ -105,11 +105,6 @@ window.onload = function init()
     render();
 };
 
-function drawCrane(){
-    gl.drawArrays(gl.TRIANGLE_STRIP,0 ,24);
-    
-}
-
 
 function render() {
     
@@ -118,7 +113,7 @@ function render() {
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
     gl.drawArrays( gl.TRIANGLES, 0, 3);
-    // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,3);
+    // gl.drawArrays(gl.TRIANGLE_STRIP,0 ,4);
 
     setTimeout(
         function(){requestAnimationFrame(render);}, 10000
