@@ -1,4 +1,4 @@
-function drawCrane(i,height){
+function drawCrane(i){
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_STRIP, i, 4);

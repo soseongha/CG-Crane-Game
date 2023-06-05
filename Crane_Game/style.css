@@ -1,0 +1,90 @@
+#h1{
+  color:black;
+  text-align: center;
+}
+
+#text{
+  color:black;
+  text-align: center;
+}
+#container{
+  /* width: 300px;
+  align-items: center;
+  padding-left: 30px;
+  margin:auto; 
+  */
+  /* width: 100px;
+  margin: auto;
+  display: block; */
+  text-align: center;
+  display: block;
+}
+
+#Red {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  align-items: center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  width: auto;
+
+  background-color: #fa5a5a;
+  border: none;
+  border-radius: 4px;
+  color: white;
+}
+
+#Blue {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  align-items: center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  width: auto;
+
+  background-color: #6698cb;
+  border: none;
+  border-radius: 4px;
+  color: white;
+}
+
+#Green {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  align-items: center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  width: auto;
+
+  background-color: #82c8a0;
+  border: none;
+  border-radius: 4px;
+  color: white;
+}

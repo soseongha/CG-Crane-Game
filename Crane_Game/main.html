@@ -127,10 +127,23 @@
         <script type="text/javascript" src="model.js"></script>
         <script type="text/javascript" src="main.js"></script>
         <script type="text/javascript" src="drawCrane.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <canvas id="gl-canvas" width="768" height="768" style="border:1px solid #000000;"> 
+    <body style="text-align: center;">
+       
+        <h1 id="h1">Crane Game</h1>
+    
+        <canvas id="gl-canvas" width="768" height="768" style="border:2px solid #000000;"> 
         Oops ... your browser doesn't support the HTML5 canvas element
         </canvas>
+        <div>
+            <h3 id="text">
+                Press the button corresponding to the color of the ball you want
+            </h3>
+        </div>
+        <button id="Red">Red</button>
+        <button id="Blue">Blue</button>
+        <button id="Green">Green</button>
+       
     </body>
 </html>

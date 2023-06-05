@@ -93,7 +93,8 @@ window.onload = function init()
 
     //  Configure WebGL
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 1., 1., 1.0, 1.0 );
+    gl.clearColor( 0.8, 0.8, 0.9, 0.9);
+
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
@@ -187,66 +188,44 @@ function render() {
     
     // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
     // cur_vertex = drawHumanHead(cur_vertex);
-    var height = 1.0;
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0, height, 0.0));
+    modelViewMatrix = mult(modelViewMatrix, translate(0.0, 1.0, 0.0));
     modelViewMatrix = mult(modelViewMatrix, rotateY(10));
     modelViewMatrix = mult(modelViewMatrix, rotateX(-10));
     modelViewMatrix = mult(modelViewMatrix, scalem(upperCraneStream.x,upperCraneStream.y,upperCraneStream.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
    
-    // height -= upperCraneStream.y;
     cur_vertex = drawUpperCraneStream(cur_vertex);
 
-    // modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, translate(0.0, -2*upperCraneStream.y, 0.0));
-    // modelViewMatrix = mult(modelViewMatrix, rotateX(-5));
-    // modelViewMatrix = mult(modelViewMatrix, rotateY(-10));
     modelViewMatrix = mult(modelViewMatrix, scalem(CraneStream.x,CraneStream.y,CraneStream.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
-    height -= CraneStream.y;
     cur_vertex = drawCraneStream(cur_vertex);
 
-    // modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, translate(0.0,-1.0, 0.0));
-    // modelViewMatrix = mult(modelViewMatrix, rotateX(-10))
-    // modelViewMatrix = mult(modelViewMatrix, scalem(lowerCraneStream.x,lowerCraneStream.y,lowerCraneStream.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
-    height -= lowerCraneStream.y;
     cur_vertex = drawLowerCraneStream(cur_vertex);
 
-    // modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, translate(0.0,-2, 0.0));
-    // modelViewMatrix = mult(modelViewMatrix, rotateX(-10));
-    // modelViewMatrix = mult(modelViewMatrix, rotateY(180));
     modelViewMatrix = mult(modelViewMatrix, scalem(2.0, 3.0, 2.0));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
-    height -= (craneTorso.y*0.66);
     cur_vertex = drawCraneTorso(cur_vertex);
 
 
-    // modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, translate(0.0, -0.5, 0.0));
-    // modelViewMatrix = mult(modelViewMatrix, rotateX(-10))
     modelViewMatrix = mult(modelViewMatrix, scalem(lowerCraneTorso.x,lowerCraneTorso.y,lowerCraneTorso.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
-    height = height-lowerCraneTorso.y;
     cur_vertex = drawLowerCraneTorso(cur_vertex);
 
-    // modelViewMatrix = mat4();
     modelViewMatrix = mult(modelViewMatrix, translate(-3, -1.2, 0.0));
     stack.push(modelViewMatrix);
     stack.push(modelViewMatrix);
-    // modelViewMatrix = mult(modelViewMatrix, rotateX(-10))
     modelViewMatrix = mult(modelViewMatrix, rotateZ(craneAngle[0]))
     modelViewMatrix = mult(modelViewMatrix, scalem(upperCrane.x,upperCrane.y,upperCrane.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
     var craneiniti = cur_vertex;
-    cur_vertex = drawCrane(cur_vertex, height-upperCrane.y-0.1);
+    cur_vertex = drawCrane(cur_vertex);
 
     cur_vertex= craneiniti;
     modelViewMatrix = stack.pop();
@@ -257,7 +236,7 @@ function render() {
     modelViewMatrix = mult(modelViewMatrix, scalem(upperCrane.x,upperCrane.y,upperCrane.z));
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
-    cur_vertex = drawCrane(cur_vertex,height-upperCrane.y-0.1);
+    cur_vertex = drawCrane(cur_vertex);
 
     // gl.drawArrays( gl.TRIANGLES, 0, 768);
     // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
@@ -270,5 +249,3 @@ function render() {
     window.requestAnimationFrame(render);
 }
 
-
-function drawCraneMass(){}
