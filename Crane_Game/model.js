@@ -12,6 +12,7 @@ function initModel()
         vec3(1.0, 0, 0),
         vec3(0, 1, 0)
     ]
+
     //Crane Steam
     vertices =  vertices + upperCraneSteam + craneSteam + lowerCraneSteam;
     // vertices = vertices + craneTorso + lowerCraneTorso;
