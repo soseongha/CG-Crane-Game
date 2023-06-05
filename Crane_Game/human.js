@@ -163,7 +163,7 @@ var normal_humanTorso = [
 
 function drawHumanTorso(cur_vertex) {
     var s = scalem(10,10,10); //몸통의 크기는 20x40x15
-    var instanceMatrix = mult(translate(0,10,0), s); //몸통의 위치는 (0,10,0)
+    var instanceMatrix = mult(translate(0,-40,0), s); //몸통의 위치는 (0,10,0)
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 60);
@@ -190,7 +190,7 @@ tetrahedron(humanHead,normal_humanHead,humanHead_base[0],humanHead_base[1],human
 
 function drawHumanHead(cur_vertex) {
     var s = scalem(10,10,10); //머리의 크기는 2x2x2
-    var instanceMatrix = mult(translate(0,40,0), s); //머리의 위치는 (0,10,0)
+    var instanceMatrix = mult(translate(0,-10,0), s); //머리의 위치는 (0,10,0)
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
