@@ -116,77 +116,77 @@ function initNodes(Id, figure){
         /*human redering start*/
         case 11: //humanTorso
             m = mult(m, translate(0, 0, 0));
-            figure[10] = createNode(m, drawHumanTorso, null, 12);
+            figure[11] = createNode(m, drawHumanTorso, null, 12);
             break;
 
         case 12: //humanHead
             m = mult(m, translate(0,humanTorso.h,0));
-            figure[10] = createNode(m, drawHumanHead, 13, null);
+            figure[12] = createNode(m, drawHumanHead, 13, null);
             break;
 
         case 13: //humanUpperArmLeft
             m = mult(m, translate(-0.5 * humanTorso.w,0.5 * humanTorso.h,0));
             m = mult(m, translate(-0.5 * humanUpperArmLeft.w,-0.5 * humanUpperArmLeft,0));
-            figure[10] = createNode(m, drawHumanUpperArmLeft, 14, 15);
+            figure[13] = createNode(m, drawHumanUpperArmLeft, 14, 15);
             break;            
         
         case 14: //humanUpperArmRight
             m = mult(m, translate(0.5 * humanTorso.w,0.5 * humanTorso.h,0));
             m = mult(m, translate(0.5 * humanUpperArmLeft.w,-0.5 * humanUpperArmLeft,0));
-            figure[10] = createNode(m, drawHumanUpperArmRight, 17, 16);
+            figure[14] = createNode(m, drawHumanUpperArmRight, 17, 16);
             break;            
         
         case 15: //humanLowerArmLeft
             m = mult(m, translate(0,-0.5 * humanUpperArm.h,0));
             m = mult(m, translate(0,-0.5 * humanLowerArm.h,0));
-            figure[10] = createNode(m, drawHumanLowerArmLeft, null, null);
+            figure[15] = createNode(m, drawHumanLowerArmLeft, null, null);
             break;            
         
         case 16: //humanLowerArmRight
             m = mult(m, translate(0,-0.5 * humanUpperArm.h,0));
             m = mult(m, translate(0,-0.5 * humanLowerArm.h,0));
-            figure[10] = createNode(m, drawHumanLowerArmRight, null, null);
+            figure[16] = createNode(m, drawHumanLowerArmRight, null, null);
             break;            
         
         case 17: //humanPelvis
             m = mult(m, translate(0,-0.5 * humanTorso.h,0));
             m = mult(m, translate(0,-0.5 * humanPelvis.h,0));
-            figure[10] = createNode(m, drawHumanPelvis, null, 18);
+            figure[17] = createNode(m, drawHumanPelvis, null, 18);
             break;            
         
         case 18: //humanThighLeft
             m = mult(m, translate(0,-0.5 * humanPelvis.h,0));
             m = mult(m, translate(0,-0.5 * humanThigh.h,0));
-            figure[10] = createNode(m, drawHumanThighLeft, 19, 20);
+            figure[18] = createNode(m, drawHumanThighLeft, 19, 20);
             break;            
         
         case 19: //humanThighRight
             m = mult(m, translate(0,-0.5 * humanPelvis.h,0));
             m = mult(m, translate(0,-0.5 * humanThigh.h,0));
-            figure[10] = createNode(m, drawHumanThighRight, null, 21);
+            figure[19] = createNode(m, drawHumanThighRight, null, 21);
             break;            
         
         case 20: //humanCalfLeft
             m = mult(m, translate(0,-0.5 * humanThigh.h,0));
             m = mult(m, translate(0,-0.5 * humanCalf.h,0));
-            figure[10] = createNode(m, drawHumanCalfLeft, null, 22);
+            figure[20] = createNode(m, drawHumanCalfLeft, null, 22);
             break;   
             
         case 21: //humanCalfRight
             m = mult(m, translate(0,-0.5 * humanThigh.h,0));
             m = mult(m, translate(0,-0.5 * humanCalf.h,0));
-            figure[10] = createNode(m, drawHumanCalfRight, null, 23);
+            figure[21] = createNode(m, drawHumanCalfRight, null, 23);
             break;    
         
         case 22: //humanFootLeft
             m = mult(m, translate(0,-0.5 * humanCalf.h,0));
             m = mult(m, translate(0,-0.5 * humanFoot.h,0));
-            figure[10] = createNode(m, drawHumanFootLeft, null, null);
+            figure[22] = createNode(m, drawHumanFootLeft, null, null);
             break;    
             
         case 23: //humanFootRight
             m = mult(m, translate(0,humanTorso.h,0));
-            figure[10] = createNode(m, drawHumanFootRight, null, null);
+            figure[23] = createNode(m, drawHumanFootRight, null, null);
             break;    
         
         default: break;

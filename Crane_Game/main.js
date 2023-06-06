@@ -48,6 +48,17 @@ var mediumCraneScale = {x: 2, y: 0.2, z: 1.0};
 var lowerCrane = {x: 3, y: 0.9, z:  1.0};
 var craneAngle=[20,70,70];
 
+var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
+var humanHead = {w: 20, h:20, d:20};
+var humanUpperArm = {w: 5, h:15, d:10};
+var humanLowerArm = {w: 5, h:15, d:10};
+var humanPelvis = {w: 25, h:15, d:10};
+var humanThigh = {w: 10, h:15, d:10};
+var humanCalf = {w: 10, h:15, d:10};
+var humanFoot = {w: 10, h:5, d:15};
+
+var humanAngle = []
+
 var drag = false;
 var redraw = false;
 var x,y;
@@ -61,14 +72,12 @@ var green = false;
 var isReturn = false;
 
 
+var figure = [];
+var numNodes = 11 + 13;
+for(var i = 0; i < numNodes; i++){
+    figure[i] = createNode(null, null, null, null);
+}
 
-// var figure = [];
-// var numNodes = 11 + 13;
-// for(var i = 0; i < numNodes; i++){
-//     figure[i] = createNode(null, null, null, null);
-// }
-
-var normalLoc;
 
 window.onload = function init() 
 {
@@ -100,9 +109,13 @@ window.onload = function init()
     //var vertices = crane_vertices.concat(human_vertices);
     //var normals = crane_normals.concat(human_normals);
 
-    var vertices = human_vertices;
-    var normals = human_normals;
-
+    
+    var vertices = box_vertices.concat(crane_vertices);
+    vertices = vertices.concat(human_vertices);
+    // vertices = vertices.concat(humanHead);
+    var normals = box_normals.concat(crane_normals);
+    normals = normals.concat(human_normals);
+   
     console.log(vertices)
     /*------------------------------*/
 
@@ -172,7 +185,6 @@ window.onload = function init()
      * 
      */
 
-
      console.log(vertices);
 
 
@@ -181,30 +193,10 @@ window.onload = function init()
 
 
 var temp = modelViewMatrix;
-var numNodes = 11;
 var cur_vertex = 0
 
 function render() {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
-
-
-//     modelViewMatrix = mult(modelViewMatrix, scalem(0.01,0.01,0.01));
-//     cur_vertex = drawHumanTorso(cur_vertex);
-
-//     modelViewMatrix = mult(modelViewMatrix, translate(0,humanTorso.h,0));
-//     cur_vertex = drawHumanHead(cur_vertex);
-
-//     cur_vertex = drawHumanUpperArmLeft(cur_vertex);    
-//     cur_vertex = drawHumanLowerArmLeft(cur_vertex);    
-//     cur_vertex = drawHumanUpperArmRight(cur_vertex);    
-//     cur_vertex = drawHumanLowerArmRight(cur_vertex);    
-//     cur_vertex = drawHumanPelvis(cur_vertex);    
-//     cur_vertex = drawHumanThighLeft(cur_vertex);
-//     cur_vertex = drawHumanCalfLeft(cur_vertex);
-//     cur_vertex = drawHumanFootLeft(cur_vertex);
-//     cur_vertex = drawHumanThighRight(cur_vertex);
-//     cur_vertex = drawHumanCalfRight(cur_vertex);
-//     cur_vertex = drawHumanFootRight(cur_vertex);
 
 
     if(red){
@@ -325,13 +317,16 @@ function render() {
     m = mult(modelViewMatrix, m);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(m));
     drawButton();
-    
+    console.log(cur_vertex)
     changeColor(vec4(0.0, 0.0, 0.2, 1.0));
     for(var i = 0; i<numNodes; i++)
         figure = initNodes(i, figure);
 
     traverse(0);
 
+
+    // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
+    // cur_vertex = drawHumanHead(cur_vertex);
 
     // gl.drawArrays( gl.TRIANGLES, 0, 768);
     // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
