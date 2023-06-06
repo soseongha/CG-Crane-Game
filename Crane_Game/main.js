@@ -323,7 +323,7 @@ function render() {
     console.log(cur_vertex) //2304 vertices
 
     //box rendering
-    changeColor(vec4(0.7, 0.8, 0.8, 1.0));
+    changeColor(vec4(0.0, 0.0, 0.2, 1.0));
     var m = mat4();
     m = mult(m, translate(0.0, -0.7, 0.35));
     m = mult(m, scalem(0.3, 0.2, 0.1));
@@ -337,7 +337,7 @@ function render() {
     figure = initNodes(i, figure);
 
     //human rendering
-    changeColor(vec4(0.970, 0.865, 0.621, 1.0));
+    changeColor(vec4(0.9, 0.2, 0.7, 1.0));
     modelViewMatrix = old_modelViewMatrix;
     modelViewMatrix = mult(modelViewMatrix, scalem(0.01, 0.01, 0.01));
     modelViewMatrix = mult(modelViewMatrix, scalem(0.4, 0.4, 0.4));
