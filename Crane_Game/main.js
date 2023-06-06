@@ -94,10 +94,11 @@ window.onload = function init()
 
     // var normals = normal_humanTorso.concat(normal_humanHead);
     // normals = normals.concat(crane_normals);
-   
-    var vertices = crane_vertices.concat(humanTorso);
+    var vertices = box_vertices.concat(crane_vertices);
+    vertices = vertices.concat(humanTorso);
     vertices = vertices.concat(humanHead);
-    var normals = crane_normals.concat(normal_humanTorso);
+    var normals = box_normals.concat(crane_normals);
+    normals = normals.concat(normal_humanTorso);
     normals = normals.concat(normal_humanHead);
 
     /*------------------------------*/
@@ -170,8 +171,92 @@ var numNodes = 11;
 var cur_vertex = 0
 
 function render() {
-    
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+
+    if(red){
+        if(!isReturn)
+        {
+            if(torsoHeight>=0.1)
+                torsoHeight -= 0.001;
+            else
+                isReturn = true;
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else
+            {
+                red = false;
+                isReturn = false;
+
+            }
+                
+        }
+        
+
+    }
+
+    if(blue){
+        console.log("Blue")
+        if(!isReturn)
+        {
+            if(torsoX<=0.5){
+                torsoX += 0.001;
+            }else{
+                if(torsoHeight>=0.1)
+                    torsoHeight -= 0.001;
+                else
+                    isReturn = true;
+            }
+            
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else{
+                if(torsoX>=0)
+                    torsoX -= 0.001;
+                else
+                {
+                    blue = false;
+                    isReturn = false;
+                }
+                    
+            }        
+           
+            
+        }
+    }
+
+    if(green){
+        console.log("Green")
+        if(!isReturn)
+        {
+            if(torsoX>= -0.5){
+                torsoX -= 0.001;
+            }else{
+                if(torsoHeight>=0.1)
+                    torsoHeight -= 0.001;
+                else
+                    isReturn = true;
+            }
+            
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else{
+                if(torsoX<=0)
+                    torsoX += 0.001;
+                else
+                {
+                    green = false;
+                    isReturn = false;
+                }
+                    
+            }
+            
+           
+            
+        }
+    }
 
     if(redraw){
         //change camera view
@@ -199,77 +284,13 @@ function render() {
         modelViewMatrix = temp;
     }
 
-    if(red){
-        if(!isReturn)
-        {
-            if(torsoHeight>=0.1)
-                torsoHeight -= 0.001;
-            else
-                isReturn = !isReturn;
-        }else{
-            if(torsoHeight<=0.3)
-                torsoHeight += 0.001;
-            else
-                red = !red;
-        }
-        
-
-    }
-
-    if(blue){
-        if(!isReturn)
-        {
-            if(torsoX<=0.5){
-                torsoX += 0.001;
-            }else{
-                if(torsoHeight>=0.1)
-                    torsoHeight -= 0.001;
-                else
-                    isReturn = !isReturn;
-            }
-            
-        }else{
-            if(torsoHeight<=0.3)
-                torsoHeight += 0.001;
-            else{
-                if(torsoX>=0)
-                    torsoX -= 0.001;
-                else
-                    blue = !blue;
-            }
-            
-           
-            
-        }
-    }
-
-    if(green){
-        if(!isReturn)
-        {
-            if(torsoX>= -0.5){
-                torsoX -= 0.001;
-            }else{
-                if(torsoHeight>=0.1)
-                    torsoHeight -= 0.001;
-                else
-                    isReturn = !isReturn;
-            }
-            
-        }else{
-            if(torsoHeight<=0.3)
-                torsoHeight += 0.001;
-            else{
-                if(torsoX<=0)
-                    torsoX += 0.001;
-                else
-                    green = !green;
-            }
-            
-           
-            
-        }
-    }
-
+    var m = mat4();
+    m = mult(m, translate(0.7, -0.7, 0.2));
+    m = mult(m, scalem(0.15, 0.15, 0.1));
+    m = mult(modelViewMatrix, m);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(m));
+    drawButton();
+    
     for(var i = 0; i<numNodes; i++)
         figure = initNodes(i, figure);
 
@@ -282,4 +303,5 @@ function render() {
     cur_vertex = 0;
     window.requestAnimationFrame(render);
 }
+
 

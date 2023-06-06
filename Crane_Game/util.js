@@ -7,14 +7,12 @@ function traverse(Id){
     
     //먼저 parent modelViewMatrix 저장
     stack.push(modelViewMatrix);
-    console.log("id is "+ Id + "push" + stack.length)
 
     //기존 modelViewMatrix에 transform 곱해주기
     modelViewMatrix = mult(modelViewMatrix, figure[Id].transform);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
 
     //render 하기
-    console.log("id " + Id + "render")
     figure[Id].render();
 
     //child 탐색
@@ -23,7 +21,6 @@ function traverse(Id){
     
     //sibling을 위해 pop
     modelViewMatrix = stack.pop();
-    console.log("pop matrix" + stack.length)
 
     if(figure[Id].sibling != null)
         traverse(figure[Id].sibling);
