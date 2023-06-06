@@ -48,6 +48,7 @@ var mediumCraneScale = {x: 2, y: 0.2, z: 1.0};
 var lowerCrane = {x: 3, y: 0.9, z:  1.0};
 var craneAngle=[20,70,70];
 
+//human
 var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
 var humanHead = {w: 20, h:20, d:20};
 var humanUpperArm = {w: 5, h:15, d:10};
