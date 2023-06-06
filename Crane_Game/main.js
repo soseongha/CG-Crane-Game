@@ -1,6 +1,4 @@
 "use strict";
-// import {initModel} from "./model.js";
-
 var gl; //gl은 WEBGL context object이다
 
 /*---전역변수로 사용할 것들---*/
@@ -21,7 +19,6 @@ var lightAmbient = vec4(0.3,0.5, 0.5, 1,0);
 var lightDiffuse = vec4(1.0, 1.0, 1.0, 1.0);
 var lightSpecular = vec4(1.0, 1.0, 1.0, 1.0);
 var lightLoc;
-projectionViewMatrix[3][3] = 1;
 var materialAmbient = vec4(1.0, 0.0, 1.0, 1.0);
 var materialDiffuse = vec4(1.0, 0.8, 0.0, 1.0);
 var materialSpecular = vec4(1.0, 0.8, 0.0, 1.0);
@@ -30,36 +27,35 @@ var ambientProduct = mult(lightAmbient, materialAmbient);
 var diffuseProduct = mult(lightDiffuse, materialDiffuse);
 var specularProduct = mult(lightSpecular, materialSpecular);
 var drag = false;
+
+//stack
+var stack =[];
+var figure = [];
 /**-------------------------- */
 
-var stack =[];
+//Crane
 var leftCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
 var rightCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
-
-var upperCraneStream = {x: 0.05, y: 0.4, z:  0.02};
-var CraneStream = {x: 2, y: 0.25, z: 1.2};
-var lowerCraneStream = {x: 0.1, y: 0.2, z:  0.1};
-var craneTorso = {x: 0.15, y: 0.3, z:  0.1};
-var lowerCraneTorso = {x: 0.4, y: 0.2, z:  0.4};
-var upperCrane = {x: 3.5, y: 1.7, z:  0.8};
-var mediumCrane = {x: 3.5, y: 1, z:  0.8};
-var lowerCrane = {x: 3.5, y: 1.0, z:  1.0};
-
-var craneAngle=[20,60,20];
-
-
+projectionViewMatrix[3][3] = 1;
+var upperCraneSteamScale = {x: 0.7, y: 5, z: 0.7};
+var craneSteamScale = {x: 0.7, y: 0.6, z: 0.6};
+var lowerCraneSteamScale = {x: 0.7, y: 0.25, z:  1.0};
+var craneTorso = {x: 0.2, y: 0.35, z:  0.2};
+var lowerCraneTorsoScale = {x: 0.5, y: 0.15, z:  0.3};
+var upperCraneScale = {x:4, y: 2, z:  1.0};
+var mediumCraneScale = {x: 2, y: 0.2, z: 1.0};
+var lowerCrane = {x: 3, y: 0.9, z:  1.0};
+var craneAngle=[20,70,70];
 var drag = false;
 var redraw = false;
 var x,y;
-var lastX = 512;
-var lastY = 512;
-var dx = 0;
-var dy = 0;
-var theta = 0;
-var phi = 0;
-var time = 0;
+var lastX = 512, lastY=512;
+var dx = 0, dy = 0;
+var theta = 0, phi = 0;
 
-var normalLoc;
+var red = false;
+
+
 window.onload = function init() 
 {
     var canvas = document.getElementById( "gl-canvas" ); //html에서 canvas를 가져옴
@@ -71,8 +67,11 @@ window.onload = function init()
         x = event.offsetX;
         y = event.offsetY;
         redraw = true;
-        // console.log("x is" + x);
     });
+
+    document.getElementById("Red").onclick = function(){
+        red = !red;
+    };
 
     /*------verctices 생성하기------*/
 
@@ -88,7 +87,6 @@ window.onload = function init()
     var normals = crane_normals.concat(normal_humanTorso);
     normals = normals.concat(normal_humanHead);
 
-    console.log(vertices)
     /*------------------------------*/
 
     //  Configure WebGL
@@ -145,28 +143,32 @@ window.onload = function init()
             gl.viewport(0, canvas.height-min, min, min);
         }
     };
+    
 
-    /**
-     * 
-     * 
-     */
-    // console.log(vertices);
+    //make node tree
+
+
     render();
 };
 
 
 var temp = modelViewMatrix;
+var numNodes = 11;
+var cur_vertex = 0
 
 function render() {
     
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
-    var cameraMatrix = mat4();
+
     if(redraw){
+        //change camera view
+        var cameraMatrix = mat4();
 
         dx = 0.05 *(lastX-x);
         dy = 0.05 *(lastY-y);
         theta += dx;
         phi += dy;
+
         cameraMatrix = translate(0, 0, -0.2);
         cameraMatrix = mult(cameraMatrix, rotateY(theta));
         cameraMatrix = mult(cameraMatrix, rotateX(phi));
@@ -174,78 +176,31 @@ function render() {
         
         var eye = vec3(modelViewMatrix[0][3], modelViewMatrix[1][3], modelViewMatrix[2][3]);
         modelViewMatrix = lookAt(eye,vec3(0,0,0),vec3(0,1,0));
-        temp=modelViewMatrix;
+        temp = modelViewMatrix;
 
         lastX = x;
         lastY = y;
         redraw = false;
     }else{
+        //load camera view
         modelViewMatrix = temp;
     }
 
+    if(red){
+        craneAngle[0]+=10;
+        red = !red;
 
-    var cur_vertex = 0 //현재 몇 번째 vertex까지 draw했는지 체크하기 위한 변수
-    
-    // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
-    // cur_vertex = drawHumanHead(cur_vertex);
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0, 1.0, 0.0));
-    modelViewMatrix = mult(modelViewMatrix, rotateY(10));
-    modelViewMatrix = mult(modelViewMatrix, rotateX(-10));
-    modelViewMatrix = mult(modelViewMatrix, scalem(upperCraneStream.x,upperCraneStream.y,upperCraneStream.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-   
-    cur_vertex = drawUpperCraneStream(cur_vertex);
+    }
+    for(var i = 0; i<numNodes; i++)
+        figure = initNodes(i, figure);
 
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0, -2*upperCraneStream.y, 0.0));
-    modelViewMatrix = mult(modelViewMatrix, scalem(CraneStream.x,CraneStream.y,CraneStream.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+    traverse(0);
 
-    cur_vertex = drawCraneStream(cur_vertex);
-
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0,-1.0, 0.0));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-    cur_vertex = drawLowerCraneStream(cur_vertex);
-
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0,-2, 0.0));
-    modelViewMatrix = mult(modelViewMatrix, scalem(2.0, 3.0, 2.0));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-    cur_vertex = drawCraneTorso(cur_vertex);
-
-
-    modelViewMatrix = mult(modelViewMatrix, translate(0.0, -0.5, 0.0));
-    modelViewMatrix = mult(modelViewMatrix, scalem(lowerCraneTorso.x,lowerCraneTorso.y,lowerCraneTorso.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-    cur_vertex = drawLowerCraneTorso(cur_vertex);
-
-    modelViewMatrix = mult(modelViewMatrix, translate(-3, -1.2, 0.0));
-    stack.push(modelViewMatrix);
-    stack.push(modelViewMatrix);
-    modelViewMatrix = mult(modelViewMatrix, rotateZ(craneAngle[0]))
-    modelViewMatrix = mult(modelViewMatrix, scalem(upperCrane.x,upperCrane.y,upperCrane.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
-    var craneiniti = cur_vertex;
-    cur_vertex = drawCrane(cur_vertex);
-
-    cur_vertex= craneiniti;
-    modelViewMatrix = stack.pop();
-    modelViewMatrix = mult(modelViewMatrix, translate(6, 0.0, 0.0));
-    modelViewMatrix = mult(modelViewMatrix, rotateY(180));
-    stack.push(modelViewMatrix);
-    modelViewMatrix = mult(modelViewMatrix, rotateZ(craneAngle[0]))
-    modelViewMatrix = mult(modelViewMatrix, scalem(upperCrane.x,upperCrane.y,upperCrane.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
-    cur_vertex = drawCrane(cur_vertex);
 
     // gl.drawArrays( gl.TRIANGLES, 0, 768);
     // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
     // cur_vertex = drawHumanHead(cur_vertex);
-    
-    
-    
-    
-
+    cur_vertex = 0;
     window.requestAnimationFrame(render);
 }
 
