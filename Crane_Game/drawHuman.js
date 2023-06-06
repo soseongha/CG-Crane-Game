@@ -37,105 +37,125 @@ function drawHumanUpperArmLeft() {
 
 }
 
-function drawHumanLowerArmLeft(cur_vertex) {
+function drawHumanLowerArmLeft() {
+    var i = cur_vertex;
     var s = scalem(5,15,10); 
     var instanceMatrix = mult(translate(-30,-6,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
 
-function drawHumanUpperArmRight(cur_vertex) {
+function drawHumanUpperArmRight() {
+    var i = cur_vertex;
     var s = scalem(5,15,10); 
     var instanceMatrix = mult(translate(30,25,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 60);
-    return cur_vertex + 60;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanLowerArmRight(cur_vertex) {
+function drawHumanLowerArmRight() {
+    var i = cur_vertex;
     var s = scalem(5,15,10); 
     var instanceMatrix = mult(translate(30,-6,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanPelvis(cur_vertex) {
+function drawHumanPelvis() {
+    var i = cur_vertex;
     var s = scalem(25,15,10); 
     var instanceMatrix = mult(translate(0,-20,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 72);
-    return cur_vertex + 72;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanThighLeft(cur_vertex) {
+function drawHumanThighLeft() {
+    var i = cur_vertex;
     var s = scalem(10,15,10); 
     var instanceMatrix = mult(translate(-13,-50,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanCalfLeft(cur_vertex) {
+function drawHumanCalfLeft() {
+    var i = cur_vertex;
     var s = scalem(10,15,10); 
     var instanceMatrix = mult(translate(-13,-81,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
 
-function drawHumanFootLeft(cur_vertex) {
+function drawHumanFootLeft() {
+    var i = cur_vertex;
     var s = scalem(10,5,15); 
     var instanceMatrix = mult(translate(-13,-90,5), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanThighRight(cur_vertex) {
+function drawHumanThighRight() {
+    var i = cur_vertex;
     var s = scalem(10,15,10); 
     var instanceMatrix = mult(translate(13,-50,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
-function drawHumanCalfRight(cur_vertex) {
+function drawHumanCalfRight() {
+    var i = cur_vertex;
     var s = scalem(10,15,10); 
     var instanceMatrix = mult(translate(13,-81,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
 
 
-function drawHumanFootRight(cur_vertex) {
+function drawHumanFootRight() {
+    var i = cur_vertex;
     var s = scalem(10,5,15); 
     var instanceMatrix = mult(translate(13,-90,5), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
-    return cur_vertex + 36;
+    cur_vertex = i;
+    return;
 
 }
