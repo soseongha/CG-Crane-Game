@@ -23,9 +23,9 @@ var materialAmbient = vec4(1.0, 0.0, 1.0, 1.0);
 var materialDiffuse = vec4(1.0, 0.8, 0.0, 1.0);
 var materialSpecular = vec4(1.0, 0.8, 0.0, 1.0);
 var materialShininess = 90.0;
-var ambientProduct = mult(lightAmbient, materialAmbient);
-var diffuseProduct = mult(lightDiffuse, materialDiffuse);
-var specularProduct = mult(lightSpecular, materialSpecular);
+var ambientProduct;
+var diffuseProduct;
+var specularProduct;
 var drag = false;
 
 //stack
@@ -121,7 +121,8 @@ window.onload = function init()
     projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix");
     gl.uniformMatrix4fv(projectionMatrixLoc, false, flatten(projectionViewMatrix));
 
-    lightLoc = gl.getUniformLocation(program, "ambientProduct")
+    lightLoc = gl.getUniformLocation(program, "ambientProduct");
+    calculateColor();
     gl.uniform4fv(lightLoc, flatten(ambientProduct));
     gl.uniform4fv(gl.getUniformLocation(program, "diffuseProduct"), flatten(diffuseProduct));
     gl.uniform4fv(gl.getUniformLocation(program, "specularProduct"), flatten(specularProduct));
@@ -284,6 +285,7 @@ function render() {
         modelViewMatrix = temp;
     }
 
+    changeColor(vec4(0.7, 0.8, 0.8, 1.0));
     var m = mat4();
     m = mult(m, translate(0.7, -0.7, 0.2));
     m = mult(m, scalem(0.15, 0.15, 0.1));
@@ -291,6 +293,7 @@ function render() {
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(m));
     drawButton();
     
+    changeColor(vec4(0.0, 0.0, 0.2, 1.0));
     for(var i = 0; i<numNodes; i++)
         figure = initNodes(i, figure);
 
@@ -305,3 +308,14 @@ function render() {
 }
 
 
+function calculateColor(){
+    ambientProduct = mult(lightAmbient, materialAmbient);
+    diffuseProduct = mult(lightDiffuse, materialDiffuse);
+    specularProduct = mult(lightSpecular, materialSpecular);
+}
+
+function changeColor(color){
+    materialAmbient = color;
+    calculateColor();
+    gl.uniform4fv(lightLoc, flatten(ambientProduct));
+}
