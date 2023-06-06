@@ -1,28 +1,26 @@
-function drawCrane(i){
+function drawUpperCrane(){
+    i = cur_vertex;
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_STRIP, i, 4);
         i = i+4;
     }
-    modelViewMatrix = stack.pop();
-    modelViewMatrix = mult(modelViewMatrix, translate(-2.5, -3, 0.0));
-    stack.push(modelViewMatrix);
-    modelViewMatrix = mult(modelViewMatrix, rotateZ(craneAngle[1]));
-    modelViewMatrix = mult(modelViewMatrix, scalem(mediumCrane.x,mediumCrane.y,mediumCrane.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
-
+    cur_vertex = i;
+    return;
+}
+function drawMediumCrane(){
+    i = cur_vertex;
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_STRIP, i, 4);
         i = i+4;
     }
+    cur_vertex = i;
+    return;
+}
 
-    modelViewMatrix = stack.pop();
-    modelViewMatrix = mult(modelViewMatrix, translate(1, -2, 0));
-    modelViewMatrix = mult(modelViewMatrix, rotateY(180))
-    modelViewMatrix = mult(modelViewMatrix, rotateZ(craneAngle[2]))
-    modelViewMatrix = mult(modelViewMatrix, scalem(lowerCrane.x,lowerCrane.y,lowerCrane.z));
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix));
+function drawLowerCrane(){
+    i = cur_vertex;
 
     gl.drawArrays(gl.TRIANGLE_STRIP, i, 4);
     i = i+4;
@@ -33,19 +31,23 @@ function drawCrane(i){
         i = i+3;
     }
 
-    return i;
+    cur_vertex = i;
+    return;
 }
 
-function drawLowerCraneTorso(i){
+function drawLowerCraneTorso(){
+    i = cur_vertex;
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_FAN, i, 4);
         i = i+4;
     }
-    return i;
+    cur_vertex = i;
+    return;
 }
 
-function drawCraneTorso(i){
+function drawCraneTorso(){
+    i = cur_vertex;
     gl.drawArrays(gl.TRIANGLE_FAN, i ,8);
     i += 8;
  
@@ -57,30 +59,35 @@ function drawCraneTorso(i){
 
     gl.drawArrays(gl.TRIANGLE_FAN, i,8);
     i+=8; 
-    return i;
+    cur_vertex = i;
+    
+    return;
 }
 
-function drawCraneStream(i){
+function drawCraneStream(){
+    i = cur_vertex;
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_FAN, i, 4);
         i = i+4;
     }
-        
-    return i;
+    cur_vertex = i;
+    return;
 }
 
-function drawUpperCraneStream(i){
+function drawUpperCraneStream(){
+    i = cur_vertex;
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_FAN, i, 4);
         i = i+4;
     }
-       
-    return i;
+    cur_vertex = i;
+    return;
 }
 
-function drawLowerCraneStream(i){
+function drawLowerCraneStream(){
+    i = cur_vertex;
     gl.drawArrays(gl.TRIANGLE_FAN, i, 8);
     i +=8;
 
@@ -92,5 +99,6 @@ function drawLowerCraneStream(i){
 
     gl.drawArrays(gl.TRIANGLE_FAN, i, 8);
     i+=8;
-    return i;
+    cur_vertex = i;
+    return ;
 }
