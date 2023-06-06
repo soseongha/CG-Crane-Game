@@ -76,6 +76,47 @@ for(var i = 0; i < numNodes; i++){
 }
 
 var normalLoc;
+
+var upperCraneStream = {x: 0.05, y: 0.4, z:  0.02};
+var CraneStream = {x: 2, y: 0.25, z: 1.2};
+var lowerCraneStream = {x: 0.1, y: 0.2, z:  0.1};
+var craneTorso = {x: 0.15, y: 0.3, z:  0.1};
+var lowerCraneTorso = {x: 0.4, y: 0.2, z:  0.4};
+var upperCrane = {x: 3.5, y: 1.7, z:  0.8};
+var mediumCrane = {x: 3.5, y: 1, z:  0.8};
+var lowerCrane = {x: 3.5, y: 1.0, z:  1.0};
+
+var craneAngle=[20,60,20];
+
+var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
+var humanHead = {w: 20, h:20, d:20};
+var humanUpperArm = {w: 5, h:15, d:10};
+var humanLowerArm = {w: 5, h:15, d:10};
+var humanPelvis = {w: 25, h:15, d:10};
+var humanThigh = {w: 10, h:15, d:10};
+var humanCalf = {w: 10, h:15, d:10};
+var humanFoot = {w: 10, h:5, d:15};
+
+var humanAngle = []
+
+var drag = false;
+var redraw = false;
+var x,y;
+var lastX = 512;
+var lastY = 512;
+var dx = 0;
+var dy = 0;
+var theta = 0;
+var phi = 0;
+var time = 0;
+
+var figure = [];
+var numNodes = 11 + 13;
+for(var i = 0; i < numNodes; i++){
+    figure[i] = createNode(null, null, null, null);
+}
+
+var normalLoc;
 window.onload = function init() 
 {
     var canvas = document.getElementById( "gl-canvas" ); //html에서 canvas를 가져옴
