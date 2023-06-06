@@ -34,10 +34,12 @@ var figure = [];
 /**-------------------------- */
 
 //Crane
+var torsoHeight = 0.3;
+var torsoX = 0.0;
 var leftCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
 var rightCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
 projectionViewMatrix[3][3] = 1;
-var upperCraneSteamScale = {x: 0.7, y: 5, z: 0.7};
+var upperCraneSteamScale = {x: 0.7, y: 25, z: 0.7};
 var craneSteamScale = {x: 0.7, y: 0.6, z: 0.6};
 var lowerCraneSteamScale = {x: 0.7, y: 0.25, z:  1.0};
 var craneTorso = {x: 0.2, y: 0.35, z:  0.2};
@@ -54,6 +56,9 @@ var dx = 0, dy = 0;
 var theta = 0, phi = 0;
 
 var red = false;
+var blue = false;
+var green = false;
+var isReturn = false;
 
 
 window.onload = function init() 
@@ -71,6 +76,14 @@ window.onload = function init()
 
     document.getElementById("Red").onclick = function(){
         red = !red;
+    };
+
+    document.getElementById("Blue").onclick = function(){
+        blue = !blue;
+    };
+
+    document.getElementById("Green").onclick = function(){
+        green = !green;
     };
 
     /*------verctices 생성하기------*/
@@ -187,10 +200,76 @@ function render() {
     }
 
     if(red){
-        craneAngle[0]+=10;
-        red = !red;
+        if(!isReturn)
+        {
+            if(torsoHeight>=0.1)
+                torsoHeight -= 0.001;
+            else
+                isReturn = !isReturn;
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else
+                red = !red;
+        }
+        
 
     }
+
+    if(blue){
+        if(!isReturn)
+        {
+            if(torsoX<=0.5){
+                torsoX += 0.001;
+            }else{
+                if(torsoHeight>=0.1)
+                    torsoHeight -= 0.001;
+                else
+                    isReturn = !isReturn;
+            }
+            
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else{
+                if(torsoX>=0)
+                    torsoX -= 0.001;
+                else
+                    blue = !blue;
+            }
+            
+           
+            
+        }
+    }
+
+    if(green){
+        if(!isReturn)
+        {
+            if(torsoX>= -0.5){
+                torsoX -= 0.001;
+            }else{
+                if(torsoHeight>=0.1)
+                    torsoHeight -= 0.001;
+                else
+                    isReturn = !isReturn;
+            }
+            
+        }else{
+            if(torsoHeight<=0.3)
+                torsoHeight += 0.001;
+            else{
+                if(torsoX<=0)
+                    torsoX += 0.001;
+                else
+                    green = !green;
+            }
+            
+           
+            
+        }
+    }
+
     for(var i = 0; i<numNodes; i++)
         figure = initNodes(i, figure);
 

@@ -36,7 +36,7 @@ function initNodes(Id, figure){
 
     switch(Id){
         case 0: //CraneTorso
-            m = mult(m, translate(0.0, 0.3, 0.0));
+            m = mult(m, translate(torsoX, torsoHeight, 0.0));
             m = mult(m, scalem(craneTorso.x,craneTorso.y,craneTorso.z));
             figure[0] = createNode(m, drawCraneTorso, null, 1);
             break;
@@ -54,7 +54,7 @@ function initNodes(Id, figure){
             break;
 
         case 3: //upperCraneStream
-            m = mult(m, translate(0.0, 6, 0.0));
+            m = mult(m, translate(0.0, 25, 0.0));
             m = mult(m, scalem(upperCraneSteamScale.x,upperCraneSteamScale.y,upperCraneSteamScale.z));
             figure[3] = createNode(m, drawUpperCraneStream, null, null);
             break;
