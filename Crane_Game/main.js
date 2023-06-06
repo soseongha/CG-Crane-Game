@@ -200,23 +200,26 @@ function render() {
 
 
     if(red){
-        if(!isReturn)
-        {
-            if(torsoHeight>=0.1)
-                torsoHeight -= 0.001;
-            else
-                isReturn = true;
-        }else{
-            if(torsoHeight<=0.3)
-                torsoHeight += 0.001;
-            else
-            {
-                red = false;
-                isReturn = false;
+        // if(!isReturn)
+        // {
+        //     if(torsoHeight>=0.1)
+        //         torsoHeight -= 0.001;
+        //     else
+        //         isReturn = true;
+        // }else{
+        //     if(torsoHeight<=0.3)
+        //         torsoHeight += 0.001;
+        //     else
+        //     {
+        //         red = false;
+        //         isReturn = false;
 
-            }
+        //     }
                 
-        }
+        // }
+
+        craneAngle[2]+=10;
+        red = !red;
         
 
     }
