@@ -2,10 +2,10 @@
 /*공의 base vector들: 4개의 vertex*/
 var ball_base = [
 
-    vec4(0,0,-1,1),
-    vec4(0,0.942809,0.333333,1),
-    vec4(-0.816497,-0.471405,0.333333,1),
-    vec4(0.816497,-0.471405,0.333333,1),
+    vec3(0,0,-1),
+    vec3(0,0.942809,0.333333),
+    vec3(-0.816497,-0.471405,0.333333),
+    vec3(0.816497,-0.471405,0.333333),
 
 ]
 
@@ -48,11 +48,11 @@ function divideTriangle(array,normal,a,b,c,count){
 function triangle(array,normal,a,b,c){
 
     //sphere에서 normal은 vertex와 같음
-    normal.push(vec4(a));
-    normal.push(vec4(b));
-    normal.push(vec4(c));
+    normal.push(vec3(a));
+    normal.push(vec3(b));
+    normal.push(vec3(c));
 
-    array.push(vec4(a));
-    array.push(vec4(b));
-    array.push(vec4(c));
+    array.push(vec3(a));
+    array.push(vec3(b));
+    array.push(vec3(c));
 }
