@@ -161,19 +161,6 @@ var normal_humanTorso = [
 
 ]
 
-<<<<<<< HEAD
-function drawHumanTorso(cur_vertex) {
-    var s = scalem(10,10,10); //몸통의 크기는 20x40x15
-    var instanceMatrix = mult(translate(0,10,0), s); //몸통의 위치는 (0,10,0)
-    var t = mult(modelViewMatrix, instanceMatrix);
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
-    gl.drawArrays(gl.TRIANGLES, cur_vertex, 60);
-    return cur_vertex + 60;
-
-}
-
-=======
->>>>>>> ed64c11 (heirarchical & stack added)
 /*머리의 base vector들: 4개의 vertex*/
 var humanHead_base = [
 
@@ -190,6 +177,7 @@ var humanHead = []
 var normal_humanHead = []
 var numTimesToSubdivide_head = 3;
 tetrahedron(humanHead,normal_humanHead,humanHead_base[0],humanHead_base[1],humanHead_base[2],humanHead_base[3],numTimesToSubdivide_head)
+
 /*윗팔-왼쪽: 60개의 vertex*/
 var humanUpperArmLeft = [
 

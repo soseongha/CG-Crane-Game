@@ -2,10 +2,10 @@
 <html>
     <head> 
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <title>Initial</title>
+        <title>CraneGame</title>
 
-         <!--vertex shader(점의 특성을 정의)-->
-         <script id="vertex-shader" type="x-shader/x-vertex">
+        <!--vertex shader(점의 특성을 정의)-->
+        <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec4 vPosition;
             attribute vec3 vNormal;
             uniform mat4 modelViewMatrix;
@@ -61,6 +61,63 @@
             }
             </script>
 
+        <!-- <script id="crane-vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            attribute vec3 vNormal;
+            uniform mat4 modelViewMatrix;
+            uniform mat4 projectionMatrix;
+            uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+            uniform vec4 lightPosition;
+            uniform float shininess;
+            varying vec4 fColor;
+            
+            void main()
+            {
+                vec3 pos = -(modelViewMatrix * vPosition).xyz;
+            
+                vec3 light = lightPosition.xyz;
+                vec3 L = normalize( light - pos );
+                vec3 E = normalize( -pos );
+                vec3 H = normalize( L + E );
+            
+                vec4 NN = vec4(vNormal, 0);
+                vec3 N = normalize( (modelViewMatrix * NN).xyz );
+            
+                vec4 ambient = ambientProduct;
+            
+                float d_val = max( dot(L, N), 0.0);
+                vec4 diffuse = d_val * diffuseProduct;
+            
+                float s_val = pow( max(dot(N, H), 0.0), shininess);
+                vec4 specular = s_val * specularProduct;
+            
+                if( dot(L,N) < 0.0){
+                    specular = vec4(0.0, 0.0, 0.0, 1.0);
+                }
+            
+                fColor = ambient + diffuse + specular;
+            
+                fColor.a = 1.0;
+            
+                
+                gl_PointSize = 1.0;
+                gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+                
+                
+            }
+            </script>
+            
+            <script id="crane-fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 fColor;
+            void main()
+            {
+            
+                gl_FragColor = fColor;
+            }
+            </script>
+                -->
+
         <script type="text/javascript" src="../Common/webgl-utils.js"></script>
         <script type="text/javascript" src="../Common/initShaders.js"></script>
         <script type="text/javascript" src="../Common/MV.js"></script>
@@ -72,11 +129,24 @@
         <script type="text/javascript" src="main.js"></script>
         <script type="text/javascript" src="drawCrane.js"></script>
         <script type="text/javascript" src="drawHuman.js"></script>
+        <script type="text/javascript" src="box.js"></script>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <canvas id="gl-canvas" width="768" height="768" style="border:1px solid #000000;"> 
+    <body style="text-align: center;">
+       
+        <h1 id="h1">Crane Game</h1>
+    
+        <canvas id="gl-canvas" width="768" height="768" style="border:2px solid #000000;"> 
         Oops ... your browser doesn't support the HTML5 canvas element
         </canvas>
+        <div>
+            <h3 id="text">
+                Press the button corresponding to the color of the ball you want.
+            </h3>
+        </div>
+        <button id="Red">Red</button>
+        <button id="Blue">Blue</button>
+        <button id="Green">Green</button>
+       
     </body>
 </html>
