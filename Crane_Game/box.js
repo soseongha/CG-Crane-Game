@@ -69,6 +69,7 @@ var box_normals = [
 
 function drawButton(){
     i = cur_vertex;
+    
     for(var j=0; j<6; j++)
     {
         gl.drawArrays(gl.TRIANGLE_FAN, i, 4);
