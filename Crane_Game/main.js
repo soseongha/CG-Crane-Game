@@ -81,7 +81,7 @@ for(var i = 0; i < numNodes; i++){
 
 
 window.onload = function init() 
-{
+{   
     var canvas = document.getElementById( "gl-canvas" ); //html에서 canvas를 가져옴
 
     gl = WebGLUtils.setupWebGL( canvas );
@@ -106,16 +106,14 @@ window.onload = function init()
     };
 
     /*------verctices 생성하기------*/
-   
-    //var vertices = crane_vertices.concat(human_vertices);
-    //var normals = crane_normals.concat(human_normals);
 
-    
-    var vertices = box_vertices.concat(crane_vertices);
+    var vertices = ball_vertices.concat(box_vertices);
     vertices = vertices.concat(human_vertices);
-    // vertices = vertices.concat(humanHead);
-    var normals = box_normals.concat(crane_normals);
+    vertices = vertices.concat(crane_vertices);
+
+    var normals = ball_normals.concat(box_normals);
     normals = normals.concat(human_normals);
+    normals = normals.concat(crane_normals);
    
     console.log(vertices)
     /*------------------------------*/
@@ -314,27 +312,54 @@ function render() {
         modelViewMatrix = temp;
     }
 
-    changeColor(vec4(0.7, 0.8, 0.8, 1.0));
+    //modelViewMatrix save
+    var old_modelViewMatrix = modelViewMatrix;
+
+    //three ball rendering
+    changeColor(vec4(0.1, 0.2, 0.9, 1.0));
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.01, 0.01, 0.01));
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.8, 0.8, 0.8));
+    drawBall_1();
+    drawBall_2();
+    drawBall_3();
+    modelViewMatrix = old_modelViewMatrix;
+    console.log(cur_vertex) //2304 vertices
+
+    //box rendering
+    changeColor(vec4(0.0, 0.0, 0.2, 1.0));
+    var m = mat4();
+    m = mult(m, translate(0.0, -0.7, 0.35));
+    m = mult(m, scalem(0.3, 0.2, 0.1));
+    m = mult(modelViewMatrix, m);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(m));
+    drawButton();
+    console.log(cur_vertex) //24 vertices
+
+    //node init
+    for(var i = 0; i<numNodes; i++)
+    figure = initNodes(i, figure);
+
+    //human rendering
+    changeColor(vec4(0.9, 0.2, 0.7, 1.0));
+    modelViewMatrix = old_modelViewMatrix;
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.01, 0.01, 0.01));
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.4, 0.4, 0.4));
+    modelViewMatrix = mult(modelViewMatrix, translate(0, -100, 150));
+    traverse(11);
+    modelViewMatrix = old_modelViewMatrix;
+    console.log(cur_vertex); //
+
+    //crane rendering
+    changeColor(vec4(0.0, 0.0, 0.2, 1.0));
     var m = mat4();
     m = mult(m, translate(0.7, -0.7, 0.2));
     m = mult(m, scalem(0.15, 0.15, 0.1));
     m = mult(modelViewMatrix, m);
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(m));
-    drawButton();
-    console.log(cur_vertex)
-    changeColor(vec4(0.0, 0.0, 0.2, 1.0));
-    for(var i = 0; i<numNodes; i++)
-        figure = initNodes(i, figure);
-
     traverse(0);
+    console.log(cur_vertex); //286 vertices
 
 
-    // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
-    // cur_vertex = drawHumanHead(cur_vertex);
-
-    // gl.drawArrays( gl.TRIANGLES, 0, 768);
-    // cur_vertex = drawHumanTorso(cur_vertex);//함수 들어갔다 오면, cur_vetex는 humanTorso의 vertex 수만큼 더해져 나옴
-    // cur_vertex = drawHumanHead(cur_vertex);
+    //reset cur_vertex
     cur_vertex = 0;
     window.requestAnimationFrame(render);
 }

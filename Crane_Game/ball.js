@@ -10,6 +10,7 @@ var ball_base = [
 ]
 
 /*공: n=3이면 768개의 vertex*/
+/*n=4이면 3072개의 vertex*/
 //tetrahedron()을 호출하면 제대로 된 머리 vertex들이 head[]에 push됨
 var ball_1 = []
 var ball_2 = []
@@ -56,3 +57,43 @@ function triangle(array,normal,a,b,c){
     array.push(vec3(b));
     array.push(vec3(c));
 }
+
+var ball_vertices = ball_1.concat(ball_2).concat(ball_3);
+var ball_normals = normal_ball_1.concat(normal_ball_2).concat(normal_ball_3);
+
+function drawBall_1() {
+    var i = cur_vertex;
+    var s = scalem(20,20,20); 
+    var instanceMatrix = mult(translate(-50,-100,-20), s); 
+    var t = mult(modelViewMatrix, instanceMatrix);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
+    gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
+    cur_vertex = i + 768;
+    return;
+
+}
+
+function drawBall_2() {
+    var i = cur_vertex;
+    var s = scalem(20,20,20); 
+    var instanceMatrix = mult(translate(-10,-100,0), s); 
+    var t = mult(modelViewMatrix, instanceMatrix);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
+    gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
+    cur_vertex = i + 768;
+    return;
+
+}
+
+function drawBall_3() {
+    var i = cur_vertex;
+    var s = scalem(20,20,20); 
+    var instanceMatrix = mult(translate(60,-100,-20), s); 
+    var t = mult(modelViewMatrix, instanceMatrix);
+    gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
+    gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
+    cur_vertex = i + 768;
+    return;
+
+}
+
