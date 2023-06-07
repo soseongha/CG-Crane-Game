@@ -30,7 +30,6 @@ function traverse(Id){
 
 function initNodes(Id, figure){
     var m = mat4();
-    console.log(Id);
     switch(Id){
         case 0: //CraneTorso
             m = mult(m, translate(torsoX, torsoHeight, 0.0));

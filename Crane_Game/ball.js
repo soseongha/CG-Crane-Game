@@ -64,7 +64,7 @@ var ball_normals = normal_ball_1.concat(normal_ball_2).concat(normal_ball_3);
 function drawBall_1() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(-50,-100,-20), s); 
+    var instanceMatrix = mult(translate(-70,-100,-20), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
@@ -76,7 +76,7 @@ function drawBall_1() {
 function drawBall_2() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(-10,-100,0), s); 
+    var instanceMatrix = mult(translate(-30,-100,0), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
@@ -88,7 +88,7 @@ function drawBall_2() {
 function drawBall_3() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(60,-100,-20), s); 
+    var instanceMatrix = mult(translate(40,-100,-20), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
