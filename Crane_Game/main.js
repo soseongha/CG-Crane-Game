@@ -6,10 +6,6 @@ var gl; //gl은 WEBGL context object이다
 var modelViewMatrixLoc;
 var projectionMatrixLoc;
 var modelViewMatrix = mat4();
-// var eye = vec3(0.0,0.0,1.0);
-// var at = vec3(0.0,0.0,0.0);
-// var up = vec3(0.0,0.1,0.0);
-// modelViewMatrix = mult(modelViewMatrix, lookAt(eye, at, up)); //viewing
 var projectionViewMatrix = perspective(100, 1, 0, 1);
 
 //shading
@@ -33,20 +29,21 @@ var figure = [];
 /**-------------------------- */
  
 //Crane
-var torsoHeight = 0.3;
+var torsoHeight = 3;
 var torsoX = 0.0;
 var leftCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
 var rightCraneAngle = [[0,0,0],[0,0,0],[0,0,0]];
 projectionViewMatrix[3][3] = 1;
-var upperCraneSteamScale = {x: 0.7, y: 25, z: 0.7};
-var craneSteamScale = {x: 0.7, y: 0.6, z: 0.6};
-var lowerCraneSteamScale = {x: 0.7, y: 0.25, z:  1.0};
-var craneTorso = {x: 0.2, y: 0.35, z:  0.2};
-var lowerCraneTorsoScale = {x: 0.5, y: 0.15, z:  0.3};
-var upperCraneScale = {x:4, y: 2, z:  1.0};
-var mediumCraneScale = {x: 2, y: 0.2, z: 1.0};
-var lowerCrane = {x: 3, y: 0.9, z:  1.0};
-var craneAngle=[20,70,70];
+var UCS = {x: 0.7, y: 25, z: 0.5};
+var CS = {x: 1.5, y: 0.6, z: 1.2};
+var LCS = {x: 1.5, y: 1, z:  1.0};
+var CT = {x: 2, y: 3.5, z: 2};
+var LCT = {x: 1, y: 0.5, z: 0.7};
+var UC = {x:3, y: 1, z:  1.0};
+var MC = {x: 2.5, y: 4/7, z: 1.0};
+var LC = {x: 3, y: 0.9, z:  1.0};
+var Rad = Math.PI/180;
+var craneAngle=[20,75,70];
 
 //human
 var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
@@ -57,7 +54,6 @@ var humanPelvis = {w: 25, h:15, d:10};
 var humanThigh = {w: 10, h:15, d:10};
 var humanCalf = {w: 10, h:15, d:10};
 var humanFoot = {w: 10, h:5, d:15};
-
 var humanAngle = []
 
 var drag = false;
@@ -348,10 +344,10 @@ function render() {
 
     //crane rendering
     changeColor(vec4(0.0, 0.0, 0.2, 1.0));
-    var m = mat4();
-    m = mult(m, translate(0.7, -0.7, 0.2));
-    m = mult(m, scalem(0.15, 0.15, 0.1));
-    m = mult(modelViewMatrix, m);
+    
+    m = scalem(0.1, 0.1, 0.1);
+    // m = mult(m, rotateY(20));
+    modelViewMatrix = mult(modelViewMatrix, m);
     traverse(0);
     console.log(cur_vertex); //286 vertices
 
