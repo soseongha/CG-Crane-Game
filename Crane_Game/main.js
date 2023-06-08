@@ -58,7 +58,20 @@ var humanThigh = {w: 10, h:15, d:10};
 var humanCalf = {w: 10, h:15, d:10};
 var humanFoot = {w: 10, h:5, d:15};
 
-var humanAngle = []
+//human angles
+var head_j = {theta: 20, axis: vec3(1,1,0)}; //ball-and-socket joint
+var shoulderLeft_j = {theta: 30, axis: vec3(-1,0,-1)}; //ball-and-socket joint
+var shoulderRight_j = {theta: -30, axis: vec3(-1,0,-1)}; //ball-and-socket joint
+var elbowLeft_j = {theta: 20}; //hinji joint
+var elbowRight_j = {theta: -20}; //hinji joint
+var waist_j = {theta: 20, axis: vec3(0,-1,0)}; //ball-and-socket joint
+var thighLeft_j = {theta: 30, axis: vec3(1,0,0)}; //ball-and-socket joint
+var thighRight_j = {theta: -30, axis: vec3(1,0,0)}; //ball-and-socket joint
+var kneeLeft_j = {theta: 30}; //hinji joint
+var kneeRight_j = {theta: 0}; //hinji joint
+var ankleLeft_j = {theta: 10, axis: vec3(1,1,0)}; //ball-and-socket joint
+var ankleRight_j = {theta: 10, axis: vec3(1,1,0)}; //ball-and-socket joint
+ 
 
 var drag = false;
 var redraw = false;
