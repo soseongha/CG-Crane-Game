@@ -24,7 +24,7 @@ function drawHumanHead() {
 
 function drawHumanUpperArmLeft() {
     var i = cur_vertex;
-    var s = scalem(5,15,10); 
+    var s = scalem(humanUpperArm.w,humanUpperArm.h,humanUpperArm.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, i, 60);
@@ -36,7 +36,7 @@ function drawHumanUpperArmLeft() {
 
 function drawHumanLowerArmLeft() {
     var i = cur_vertex;
-    var s = scalem(5,15,10); 
+    var s = scalem(humanLowerArm.w,humanLowerArm.h,humanLowerArm.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -48,7 +48,7 @@ function drawHumanLowerArmLeft() {
 
 function drawHumanUpperArmRight() {
     var i = cur_vertex;
-    var s = scalem(5,15,10); 
+    var s = scalem(humanUpperArm.w,humanUpperArm.h,humanUpperArm.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 60);
@@ -59,7 +59,7 @@ function drawHumanUpperArmRight() {
 
 function drawHumanLowerArmRight() {
     var i = cur_vertex;
-    var s = scalem(5,15,10); 
+    var s = scalem(humanLowerArm.w,humanLowerArm.h,humanLowerArm.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -70,7 +70,7 @@ function drawHumanLowerArmRight() {
 
 function drawHumanPelvis() {
     var i = cur_vertex;
-    var s = scalem(25,15,10); 
+    var s = scalem(humanPelvis.w,humanPelvis.h,humanPelvis.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 72);
@@ -81,7 +81,7 @@ function drawHumanPelvis() {
 
 function drawHumanThighLeft() {
     var i = cur_vertex;
-    var s = scalem(10,15,10); 
+    var s = scalem(humanThigh.w,humanThigh.h,humanThigh.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -92,7 +92,7 @@ function drawHumanThighLeft() {
 
 function drawHumanCalfLeft() {
     var i = cur_vertex;
-    var s = scalem(10,15,10); 
+    var s = scalem(humanCalf.w,humanCalf.h,humanCalf.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -104,7 +104,7 @@ function drawHumanCalfLeft() {
 
 function drawHumanFootLeft() {
     var i = cur_vertex;
-    var s = scalem(10,5,15); 
+    var s = scalem(humanFoot.w,humanFoot.h,humanFoot.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -115,7 +115,7 @@ function drawHumanFootLeft() {
 
 function drawHumanThighRight() {
     var i = cur_vertex;
-    var s = scalem(10,15,10); 
+    var s = scalem(humanThigh.w,humanThigh.h,humanThigh.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -126,7 +126,7 @@ function drawHumanThighRight() {
 
 function drawHumanCalfRight() {
     var i = cur_vertex;
-    var s = scalem(10,15,10); 
+    var s = scalem(humanCalf.w,humanCalf.h,humanCalf.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);
@@ -138,7 +138,7 @@ function drawHumanCalfRight() {
 
 function drawHumanFootRight() {
     var i = cur_vertex;
-    var s = scalem(10,5,15); 
+    var s = scalem(humanFoot.w,humanFoot.h,humanFoot.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 36);

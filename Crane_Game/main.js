@@ -45,17 +45,30 @@ var LC = {x: 3, y: 0.9, z:  1.0};
 var Rad = Math.PI/180;
 var craneAngle=[10,70,60];
 
-//human
+//human length
 var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
 var humanHead = {w: 20, h:20, d:20};
 var humanUpperArm = {w: 5, h:15, d:10};
-var humanLowerArm = {w: 5, h:15, d:10};
+var humanLowerArm = {w: 10, h:30, d:10};
 var humanPelvis = {w: 25, h:15, d:10};
 var humanThigh = {w: 10, h:15, d:10};
 var humanCalf = {w: 10, h:15, d:10};
 var humanFoot = {w: 10, h:5, d:15};
-var humanAngle = []
 
+//human angles
+var head_j = {theta: 0, axis: vec3(1,1,0)}; //ball-and-socket joint
+var shoulderLeft_j = {theta: 30, axis: vec3(0,0,-1)}; //ball-and-socket joint
+var shoulderRight_j = {theta: -30, axis: vec3(0,0,-1)}; //ball-and-socket joint
+var elbowLeft_j = {theta: 60}; //hinji joint
+var elbowRight_j = {theta: -60}; //hinji joint
+var waist_j = {theta: 0, axis: vec3(0,-1,0)}; //ball-and-socket joint
+var thighLeft_j = {theta: 0, axis: vec3(1,0,0)}; //ball-and-socket joint
+var thighRight_j = {theta: 0, axis: vec3(1,0,0)}; //ball-and-socket joint
+var kneeLeft_j = {theta: 0}; //hinji joint
+var kneeRight_j = {theta: 0}; //hinji joint
+var ankleLeft_j = {theta: 0, axis: vec3(1,1,0)}; //ball-and-socket joint
+var ankleRight_j = {theta: 0, axis: vec3(1,1,0)}; //ball-and-socket joint
+ 
 //move viewing
 var drag = false;
 var redraw = false;
@@ -277,8 +290,8 @@ function render() {
     changeColor(vec4(0.9, 0.2, 0.7, 1.0));
     modelViewMatrix = old_modelViewMatrix;
     modelViewMatrix = mult(modelViewMatrix, scalem(0.01, 0.01, 0.01));
-    modelViewMatrix = mult(modelViewMatrix, scalem(0.4, 0.4, 0.4));
-    modelViewMatrix = mult(modelViewMatrix, translate(100, -100, -150));
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.2, 0.2, 0.2));
+    modelViewMatrix = mult(modelViewMatrix, translate(350, -60, 0));
     traverse(11);
     modelViewMatrix = old_modelViewMatrix;
     // console.log(cur_vertex); //

@@ -126,72 +126,82 @@ function initNodes(Id, figure){
         case 12: //humanHead
             m = mult(m, translate(0,humanTorso.h,0));
             m = mult(m, translate(0,humanHead.h,0));
+            m = mult(m, rotate(head_j.theta, head_j.axis));
             figure[12] = createNode(m, drawHumanHead, 13, null);
             break;
 
         case 13: //humanUpperArmLeft
             m = mult(m, translate(-humanTorso.w,humanTorso.h,0));
             m = mult(m, translate(-humanUpperArm.w,-humanUpperArm.h,0));
+            m = mult(m, rotate(shoulderLeft_j.theta, shoulderLeft_j.axis));
             figure[13] = createNode(m, drawHumanUpperArmLeft, 14, 15);
             break;            
         
         case 14: //humanUpperArmRight
             m = mult(m, translate(humanTorso.w,humanTorso.h,0));
             m = mult(m, translate(humanUpperArm.w,-humanUpperArm.h,0));
+            m = mult(m, rotate(shoulderRight_j.theta, shoulderRight_j.axis));
             figure[14] = createNode(m, drawHumanUpperArmRight, 17, 16);
             break;            
         
         case 15: //humanLowerArmLeft
-            m = mult(m, translate(0,-humanUpperArm.h,0));
-            m = mult(m, translate(0,-humanLowerArm.h,0));
+            m = mult(m, translate(humanUpperArm.w,-humanUpperArm.h,0));
+            m = mult(m, rotateZ(elbowLeft_j.theta));
             figure[15] = createNode(m, drawHumanLowerArmLeft, null, null);
             break;            
         
         case 16: //humanLowerArmRight
-            m = mult(m, translate(0,-humanUpperArm.h,0));
-            m = mult(m, translate(0,-humanLowerArm.h,0));
+        m = mult(m, translate(-humanUpperArm.w,-humanUpperArm.h,0));
+            m = mult(m, rotateZ(elbowRight_j.theta));
             figure[16] = createNode(m, drawHumanLowerArmRight, null, null);
             break;            
         
         case 17: //humanPelvis
             m = mult(m, translate(0,-humanTorso.h,0));
             m = mult(m, translate(0,-humanPelvis.h,0));
+            m = mult(m, rotate(waist_j.theta, waist_j.axis));
             figure[17] = createNode(m, drawHumanPelvis, null, 18);
             break;            
         
         case 18: //humanThighLeft
             m = mult(m, translate(-humanPelvis.w,-humanPelvis.h,0));
             m = mult(m, translate(humanThigh.w,-humanThigh.h,0));
+            m = mult(m, rotate(thighLeft_j.theta, thighLeft_j.axis));
             figure[18] = createNode(m, drawHumanThighLeft, 19, 20);
             break;            
         
         case 19: //humanThighRight
             m = mult(m, translate(humanPelvis.w,-humanPelvis.h,0));
             m = mult(m, translate(-humanThigh.w,-humanThigh.h,0));
+            m = mult(m, rotate(thighRight_j.theta, thighRight_j.axis));
             figure[19] = createNode(m, drawHumanThighRight, null, 21);
             break;            
         
         case 20: //humanCalfLeft
             m = mult(m, translate(0,-humanThigh.h,0));
             m = mult(m, translate(0,-humanCalf.h,0));
+            m = mult(m, rotateX(kneeLeft_j.theta));
             figure[20] = createNode(m, drawHumanCalfLeft, null, 22);
             break;   
             
         case 21: //humanCalfRight
             m = mult(m, translate(0,-humanThigh.h,0));
             m = mult(m, translate(0,-humanCalf.h,0));
+            m = mult(m, rotateX(kneeRight_j.theta));
             figure[21] = createNode(m, drawHumanCalfRight, null, 23);
             break;    
         
         case 22: //humanFootLeft
-            m = mult(m, translate(0,-humanCalf.h,humanCalf.d));
-            m = mult(m, translate(0,-humanFoot.h,-humanFoot.d));
+            m = mult(m, translate(0,-humanCalf.h,-humanCalf.d));
+            m = mult(m, translate(0,-humanFoot.h,humanFoot.d));
+            m = mult(m, rotate(ankleLeft_j.theta, ankleLeft_j.axis));
             figure[22] = createNode(m, drawHumanFootLeft, null, null);
             break;    
             
         case 23: //humanFootRight
-            m = mult(m, translate(0,-humanCalf.h,humanCalf.d));
-            m = mult(m, translate(0,-humanFoot.h,-humanFoot.d));
+            m = mult(m, translate(0,-humanCalf.h,-humanCalf.d));
+            m = mult(m, translate(0,-humanFoot.h,humanFoot.d));
+            m = mult(m, rotate(ankleRight_j.theta, ankleRight_j.axis));
             figure[23] = createNode(m, drawHumanFootRight, null, null);
             break;    
         
