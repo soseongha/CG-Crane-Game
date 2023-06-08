@@ -318,15 +318,21 @@ function returnToZero(){
     }else{
         torsoHeight = 10;
         // cameraY = 0.0;
-        if(torsoX>0){
-            torsoX -= 0.1;
-            // cameraX += 0.0005;
+        if(torsoZ>0.0){
+            torsoZ -= 0.1;
         }else{
-            torsoX = 0.0;
-            // cameraX = 0.0;
-            goZero = false;
-            isSuccess = true;
+            torsoZ = 0.0;
+            if(torsoX>0){
+                torsoX -= 0.1;
+                // cameraX += 0.0005;
+            }else{
+                torsoX = 0.0;
+                // cameraX = 0.0;
+                goZero = false;
+                isSuccess = true;
+            } 
         }
+        
     }
 }
 function calculateColor(){
@@ -380,12 +386,12 @@ function redCrane(){
             else
             {
                 isdescent = true;
-                if(torsoZ<0.0){
+                if(torsoZ<1.0){
                     torsoZ += 0.01;
-                    redBall.z += 0.2;
+                    redBall.z += 0.3;
                 }else{
-                    torsoZ = 0.0;
-                    redBall.z = 0.0;
+                    torsoZ = 1.0;
+                    // redBall.z = 1.0;
                     if(torsoX<12){
                         torsoX += 0.05;
                         redBall.x += 0.7;
@@ -438,12 +444,11 @@ function blueCrane(){
         else
         {
             isdescent = true;
-            if(torsoZ<0.0){
+            if(torsoZ<1.0){
                 torsoZ += 0.01;
-                blueBall.z += 0.2; 
+                blueBall.z += 0.3; 
             }else{
-                torsoZ = 0.0;
-                blueBall.z = 0.0;
+                torsoZ = 1.0;
                 if(torsoX<12){
                     torsoX += 0.05;
                     blueBall.x += 0.7;
@@ -490,6 +495,10 @@ function greenCrane(){
         else
         {
             isdescent = true;
+            if(torsoZ<1.0){
+                torsoZ += 0.01;
+                greenBall.z += 0.3; 
+            }else{
             if(torsoX<12){
                 torsoX += 0.05;
                 greenBall.x += 0.7;
@@ -500,7 +509,7 @@ function greenCrane(){
                     greenBall.y -= 1.4;
                 }else
                     green = returnCraneAngle();
-            }
+            }}
         }
     }
 }
