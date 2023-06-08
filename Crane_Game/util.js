@@ -145,15 +145,13 @@ function initNodes(Id, figure){
             break;            
         
         case 15: //humanLowerArmLeft
-            m = mult(m, translate(0,-humanUpperArm.h,0));
-            m = mult(m, translate(0,-humanLowerArm.h,0));
+            m = mult(m, translate(humanUpperArm.w,-humanUpperArm.h,0));
             m = mult(m, rotateZ(elbowLeft_j.theta));
             figure[15] = createNode(m, drawHumanLowerArmLeft, null, null);
             break;            
         
         case 16: //humanLowerArmRight
-            m = mult(m, translate(0,-humanUpperArm.h,0));
-            m = mult(m, translate(0,-humanLowerArm.h,0));
+        m = mult(m, translate(-humanUpperArm.w,-humanUpperArm.h,0));
             m = mult(m, rotateZ(elbowRight_j.theta));
             figure[16] = createNode(m, drawHumanLowerArmRight, null, null);
             break;            
@@ -194,15 +192,15 @@ function initNodes(Id, figure){
             break;    
         
         case 22: //humanFootLeft
-            m = mult(m, translate(0,-humanCalf.h,humanCalf.d));
-            m = mult(m, translate(0,-humanFoot.h,-humanFoot.d));
+            m = mult(m, translate(0,-humanCalf.h,-humanCalf.d));
+            m = mult(m, translate(0,-humanFoot.h,humanFoot.d));
             m = mult(m, rotate(ankleLeft_j.theta, ankleLeft_j.axis));
             figure[22] = createNode(m, drawHumanFootLeft, null, null);
             break;    
             
         case 23: //humanFootRight
-            m = mult(m, translate(0,-humanCalf.h,humanCalf.d));
-            m = mult(m, translate(0,-humanFoot.h,-humanFoot.d));
+            m = mult(m, translate(0,-humanCalf.h,-humanCalf.d));
+            m = mult(m, translate(0,-humanFoot.h,humanFoot.d));
             m = mult(m, rotate(ankleRight_j.theta, ankleRight_j.axis));
             figure[23] = createNode(m, drawHumanFootRight, null, null);
             break;    
