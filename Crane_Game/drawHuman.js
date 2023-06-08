@@ -1,6 +1,6 @@
 
 function drawHumanTorso() {
-    var i = cur_vertex
+    var i = cur_vertex;
     var s = scalem(humanTorso.w,humanTorso.h,humanTorso.d); //몸통의 크기는 20x40x15
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
@@ -12,7 +12,7 @@ function drawHumanTorso() {
 }
 
 function drawHumanHead() {
-    var i = cur_vertex
+    var i = cur_vertex;
     var s = scalem(humanHead.w,humanHead.h,humanHead.d); 
     var t = mult(modelViewMatrix, s);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
