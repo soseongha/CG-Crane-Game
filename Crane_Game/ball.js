@@ -52,7 +52,6 @@ function triangle(array,normal,a,b,c){
     normal.push(vec3(a));
     normal.push(vec3(b));
     normal.push(vec3(c));
-
     array.push(vec3(a));
     array.push(vec3(b));
     array.push(vec3(c));
@@ -64,7 +63,7 @@ var ball_normals = normal_ball_1.concat(normal_ball_2).concat(normal_ball_3);
 function drawBall_1() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(-70,-100,-20), s); 
+    var instanceMatrix = mult(translate(blueBall.x,blueBall.y,blueBall.z), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
@@ -72,11 +71,12 @@ function drawBall_1() {
     return;
 
 }
+
 
 function drawBall_2() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(-30,-100,0), s); 
+    var instanceMatrix = mult(translate(greenBall.x,greenBall.y,greenBall.z), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);
@@ -85,10 +85,11 @@ function drawBall_2() {
 
 }
 
+
 function drawBall_3() {
     var i = cur_vertex;
     var s = scalem(20,20,20); 
-    var instanceMatrix = mult(translate(40,-100,-20), s); 
+    var instanceMatrix = mult(translate(redBall.x,redBall.y,redBall.z), s); 
     var t = mult(modelViewMatrix, instanceMatrix);
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(t));
     gl.drawArrays(gl.TRIANGLES, cur_vertex, 768);

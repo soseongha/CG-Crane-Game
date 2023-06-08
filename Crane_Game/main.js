@@ -32,6 +32,7 @@ var figure = [];
 //Crane
 var torsoHeight = 10;
 var torsoX = 0.0;
+var torsoZ = 0.0;
 projectionViewMatrix[3][3] = 1;
 var UCS = {x: 0.7, y: 25, z: 0.5};
 var CS = {x: 1.5, y: 0.6, z: 1.2};
@@ -42,7 +43,7 @@ var UC = {x:3, y: 1, z:  1.0};
 var MC = {x: 2.5, y: 4/7, z: 1.0};
 var LC = {x: 3, y: 0.9, z:  1.0};
 var Rad = Math.PI/180;
-var craneAngle=[10,70,75];
+var craneAngle=[10,70,60];
 
 //human
 var humanTorso = {w: 25, h:25, d:10}; //width, height, depth를 뜻함
@@ -179,17 +180,25 @@ var isPicking = false; //is picking the ball
 var isangle0 = false;
 var isangle1 = false;
 var isangle2 = false;
+var cameraX = 0.0;
+var cameraY = 0.0;
+var cameraZ = -0.2;
+var isSuccess = false;
+var redBall = {x: 40, y: -100, z: -20};
+var blueBall = {x: -70, y: -100, z: -20};
+var greenBall = {x: -30, y: -100, z:0};
 
 function render() {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
     //camera
     var cameraMatrix = mat4();
-    cameraMatrix = translate(0, 0, -0.2);
+    cameraMatrix = translate(cameraX, cameraY, cameraZ);
     cameraMatrix = mult(cameraMatrix, rotateY(theta));
     cameraMatrix = mult(cameraMatrix, rotateX(phi));
     modelViewMatrix = inverse4(cameraMatrix);
-        
+    
+
     var eye = vec3(modelViewMatrix[0][3], modelViewMatrix[1][3], modelViewMatrix[2][3]);
     modelViewMatrix = lookAt(eye,vec3(0,0,0),vec3(0,1,0));
 
@@ -200,8 +209,6 @@ function render() {
     if(red){
         redCrane();
     }
-
-
 
     if(blue){
         blueCrane();
@@ -235,7 +242,7 @@ function render() {
 
     //three ball rendering
     changeColor(vec4(0.0, 0.0, 1.0, 1.0));
-    modelViewMatrix = mult(modelViewMatrix, scalem(0.005, 0.005, 0.005));
+    modelViewMatrix = mult(modelViewMatrix, scalem(0.005, 0.005, 0.002));
     drawBall_1();
     changeColor(vec4(0.0,1.0, 0.0, 1.0));
     drawBall_2();
@@ -294,13 +301,18 @@ function render() {
 function returnToZero(){
     if(torsoHeight<10){
         torsoHeight += 0.1;
+        // cameraY -= 0.001;
     }else{
         torsoHeight = 10;
+        // cameraY = 0.0;
         if(torsoX>0){
             torsoX -= 0.1;
+            // cameraX += 0.0005;
         }else{
             torsoX = 0.0;
+            // cameraX = 0.0;
             goZero = false;
+            isSuccess = true;
         }
     }
 }
@@ -316,35 +328,68 @@ function changeColor(color){
     gl.uniform4fv(lightLoc, flatten(ambientProduct));
 }
 
+var pickBall = false;
+
 function redCrane(){
     if(!isAscent)
         {
-            if(torsoX<3){
-                torsoX += 0.1;
+            if(torsoZ>-1.2){
+                torsoZ -= 0.1;
             }else{
-                if(torsoHeight>1)
-                    torsoHeight -= 0.1;
-                else{
-                    if(!isPicking)
-                        moveCraneAngle()
-                    else
-                        isAscent = true;
-                }    
+                if(torsoX<3){
+                    torsoX += 0.1;
+                    // cameraX -= 0.001;
+                }else{
+                    if(torsoHeight>1){
+                        torsoHeight -= 0.1;
+                        // cameraY += 0.0005;
+                        // cameraZ += 0.001;
+                    }
+                    else{
+                        if(!isPicking){
+                            moveCraneAngle();
+                            if(pickBall)
+                            redBall.y += 0.2;
+                            
+                        }
+                        else
+                            isAscent = true;
+                    }    
+                }
             }
+            
         }else{
-            if(torsoHeight<10 && !isdescent)
+            if(torsoHeight<10 && !isdescent){
                 torsoHeight += 0.05;
+                redBall.y += 0.65;
+                // cameraY -= 0.001;
+            }
             else
             {
                 isdescent = true;
-                if(torsoX<12)
-                    torsoX += 0.05;
-                else{
-                    if(torsoHeight>2)
-                        torsoHeight -= 0.1;
-                    else
-                        red = returnCraneAngle();
+                if(torsoZ<0.0){
+                    torsoZ += 0.01;
+                    redBall.z += 0.2;
+                }else{
+                    torsoZ = 0.0;
+                    redBall.z = 0.0;
+                    if(torsoX<12){
+                        torsoX += 0.05;
+                        redBall.x += 0.7;
+                        // cameraX += 0.0005;
+                    } 
+                    else{
+                        if(torsoHeight>2.5)
+                        {
+                            torsoHeight -= 0.1;
+                            redBall.y -= 1.4;
+                            // cameraY += 0.001;
+                        }  
+                        else
+                            red = returnCraneAngle();
+                    }
                 }
+               
             }
         }
 }
@@ -352,31 +397,53 @@ function redCrane(){
 function blueCrane(){
     if(!isAscent)
     {
-        if(torsoX>-5){
-            torsoX -= 0.1;
+        if(torsoZ>-1.2){
+            torsoZ -= 0.1;
         }else{
-            if(torsoHeight>1)
-                torsoHeight -= 0.1;
-            else{
-                if(!isPicking)
-                    moveCraneAngle()
-                else
-                    isAscent = true;
-            }    
+            if(torsoX>-5){
+                torsoX -= 0.1;
+            }else{
+                if(torsoHeight>1)
+                    torsoHeight -= 0.1;
+                else{
+                    if(!isPicking){
+                        moveCraneAngle();
+                        if(pickBall)
+                            blueBall.y += 0.2;
+                    }
+                    else
+                        isAscent = true;
+                }    
+            }
         }
+       
     }else{
-        if(torsoHeight<10 && !isdescent)
+        if(torsoHeight<10 && !isdescent){
             torsoHeight += 0.05;
+            blueBall.y += 0.65;
+        }
         else
         {
             isdescent = true;
-            if(torsoX<12)
-                torsoX += 0.05;
-            else{
-                if(torsoHeight>2)
-                    torsoHeight -= 0.1;
-                else
-                    blue = returnCraneAngle();
+            if(torsoZ<0.0){
+                torsoZ += 0.01;
+                blueBall.z += 0.2; 
+            }else{
+                torsoZ = 0.0;
+                blueBall.z = 0.0;
+                if(torsoX<12){
+                    torsoX += 0.05;
+                    blueBall.x += 0.7;
+                }
+                   
+                else{
+                    if(torsoHeight>2.5){
+                        torsoHeight -= 0.1;
+                        blueBall.y -= 1.4;
+                    }
+                    else
+                        blue = returnCraneAngle();
+                }
             }
         }
     }
@@ -392,23 +459,33 @@ function greenCrane(){
                 torsoHeight -= 0.1;
             else{
                 if(!isPicking)
-                    moveCraneAngle()
+                {
+                    moveCraneAngle();
+                    if(pickBall)
+                            greenBall.y += 0.2;
+                    
+                }
                 else
                     isAscent = true;
             }    
         }
     }else{
-        if(torsoHeight<10 && !isdescent)
+        if(torsoHeight<10 && !isdescent){
             torsoHeight += 0.05;
+            greenBall.y += 0.65;
+        }
         else
         {
             isdescent = true;
-            if(torsoX<12)
+            if(torsoX<12){
                 torsoX += 0.05;
+                greenBall.x += 0.7;
+            }
             else{
-                if(torsoHeight>2)
+                if(torsoHeight>2.5){
                     torsoHeight -= 0.1;
-                else
+                    greenBall.y -= 1.4;
+                }else
                     green = returnCraneAngle();
             }
         }
@@ -421,12 +498,16 @@ function moveCraneAngle(){
         craneAngle[0] += 0.1;
     }else{
         if(craneAngle[1]<75){
+            pickBall = true;
             craneAngle[1] += 0.1;
         }else{
             if(craneAngle[2]<70){
+                
                 craneAngle[2] += 0.1;
+                // redBallHeight += 0.1;
             }else{
                 isPicking = true;
+                cameraZ = -0.2;
             }
         }
     }
@@ -445,6 +526,8 @@ function returnCraneAngle(){
                 isAscent = false;
                 goZero = true;
                 isdescent = false;
+                isPicking = false;
+                pickBall = false;
                 return false;
             }
         }

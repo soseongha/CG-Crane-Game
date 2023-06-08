@@ -32,7 +32,7 @@ function initNodes(Id, figure){
     var m = mat4();
     switch(Id){
         case 0: //CraneTorso
-            m = mult(m, translate(torsoX, torsoHeight, 0.0));
+            m = mult(m, translate(torsoX, torsoHeight, torsoZ));
             figure[0] = createNode(m, drawCraneTorso, null, 1);
             break;
 
