@@ -57,8 +57,8 @@ var humanFoot = {w: 10, h:5, d:15};
 
 //human angles
 var head_j = {theta: 0, axis: vec3(1,1,0)}; //ball-and-socket joint
-var shoulderLeft_j = {theta: 30, axis: vec3(0,0,-1)}; //ball-and-socket joint
-var shoulderRight_j = {theta: -30, axis: vec3(0,0,-1)}; //ball-and-socket joint
+var shoulderLeft_j = {xTheta: 0, yTheta: 0, zTheta:-30}; //ball-and-socket joint
+var shoulderRight_j = {xTheta: 0, yTheta: 0, zTheta:30}; //ball-and-socket joint
 var elbowLeft_j = {theta: 60}; //hinji joint
 var elbowRight_j = {theta: -60}; //hinji joint
 var waist_j = {theta: 0, axis: vec3(0,-1,0)}; //ball-and-socket joint
@@ -201,6 +201,10 @@ var redBall = {x: 40, y: -100, z: -20};
 var blueBall = {x: -70, y: -100, z: -20};
 var greenBall = {x: -30, y: -100, z:0};
 
+//var ballMoved = {red:false, blue:false, green:false};
+var ballMoved = {red:true, blue:true, green:true};
+var dancing = false;
+
 function render() {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
@@ -229,6 +233,20 @@ function render() {
 
     if(green){
         greenCrane();
+    }
+    
+    if(ballMoved.red && ballMoved.green && ballMoved.blue){
+        dancing = true;
+        ballMoved.red = false;
+        ballMoved.green = false;
+        ballMoved.blue = false;
+    }
+
+    if(dancing){
+        dance();
+    }
+    if(swaying){
+        sway();
     }
 
     // if(redraw){
@@ -291,7 +309,7 @@ function render() {
     modelViewMatrix = old_modelViewMatrix;
     modelViewMatrix = mult(modelViewMatrix, scalem(0.01, 0.01, 0.01));
     modelViewMatrix = mult(modelViewMatrix, scalem(0.2, 0.2, 0.2));
-    modelViewMatrix = mult(modelViewMatrix, translate(350, -60, 0));
+    modelViewMatrix = mult(modelViewMatrix, translate(350, -70, 0));
     traverse(11);
     modelViewMatrix = old_modelViewMatrix;
     // console.log(cur_vertex); //
@@ -405,7 +423,7 @@ function redCrane(){
                             // cameraY += 0.001;
                         }  
                         else
-                            red = returnCraneAngle();
+                            red = returnCraneAngle("red");
                     }
                 }
                
@@ -460,7 +478,7 @@ function blueCrane(){
                         blueBall.y -= 1.4;
                     }
                     else
-                        blue = returnCraneAngle();
+                        blue = returnCraneAngle("blue");
                 }
             }
         }
@@ -508,7 +526,7 @@ function greenCrane(){
                     torsoHeight -= 0.1;
                     greenBall.y -= 1.4;
                 }else
-                    green = returnCraneAngle();
+                    green = returnCraneAngle("green");
             }}
         }
     }
@@ -535,7 +553,7 @@ function moveCraneAngle(){
     }
 }
 
-function returnCraneAngle(){
+function returnCraneAngle(ball_color){
     if(craneAngle[2]>60){
         craneAngle[2] -= 0.1;
     }else{
@@ -550,9 +568,82 @@ function returnCraneAngle(){
                 isdescent = false;
                 isPicking = false;
                 pickBall = false;
+                if(ball_color == "red") ballMoved.red = true;
+                else if(ball_color == "green") ballMoved.green = true;
+                else if(ball_color == "blue") ballMoved.blue = true;
                 return false;
+
             }
         }
     }
     return true;
+}
+
+var swaying = false;
+var sway_descent = false;
+var sway_count = 0;
+
+function dance(){
+
+    if(elbowLeft_j.theta > 0){
+        elbowLeft_j.theta -= 1;
+        elbowRight_j.theta += 1;
+        return;
+    }
+    else if(shoulderLeft_j.zTheta > -180){
+        shoulderLeft_j.zTheta -= 1.5;
+        shoulderRight_j.zTheta += 1.5;
+        shoulderLeft_j.yTheta += 0.2;
+        shoulderRight_j.yTheta -= 0.2;
+        return;
+    }
+    else{
+        swaying = true;
+        dancing = false;
+    }
+
+}
+
+function sway(){
+
+    //순서대로
+    if(!sway_descent){
+
+        if(waist_j.theta < 25){
+            waist_j.theta += 1;
+            head_j.theta += 1;
+            shoulderLeft_j.xTheta += 1;
+            shoulderRight_j.xTheta -= 1;
+            thighLeft_j.theta += 0.4;
+            thighRight_j.theta -= 0.4;
+            kneeLeft_j.theta += 0.4;
+            kneeRight_j.theta -= 0.4;
+        }
+        else{
+            sway_descent = true;
+        }
+        
+    }//역순으로
+    else{
+
+        if(waist_j.theta > -25){
+    
+            waist_j.theta -= 1;
+            head_j.theta -= 1;
+            shoulderLeft_j.xTheta -= 1;
+            shoulderRight_j.xTheta += 1;
+            thighLeft_j.theta -= 0.4;
+            thighRight_j.theta += 0.4;
+            kneeLeft_j.theta -= 0.4;
+            kneeRight_j.theta += 0.4;
+        }
+        else{
+            sway_count += 1;
+            if(sway_count > 2){
+                swaying = false;
+            }
+            sway_descent = false;
+        }
+
+    }
 }

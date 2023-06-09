@@ -133,14 +133,18 @@ function initNodes(Id, figure){
         case 13: //humanUpperArmLeft
             m = mult(m, translate(-humanTorso.w,humanTorso.h,0));
             m = mult(m, translate(-humanUpperArm.w,-humanUpperArm.h,0));
-            m = mult(m, rotate(shoulderLeft_j.theta, shoulderLeft_j.axis));
+            m = mult(m, rotateX(shoulderLeft_j.xTheta));
+            m = mult(m, rotateY(shoulderLeft_j.yTheta));
+            m = mult(m, rotateZ(shoulderLeft_j.zTheta));
             figure[13] = createNode(m, drawHumanUpperArmLeft, 14, 15);
             break;            
         
         case 14: //humanUpperArmRight
             m = mult(m, translate(humanTorso.w,humanTorso.h,0));
             m = mult(m, translate(humanUpperArm.w,-humanUpperArm.h,0));
-            m = mult(m, rotate(shoulderRight_j.theta, shoulderRight_j.axis));
+            m = mult(m, rotateX(shoulderRight_j.xTheta));
+            m = mult(m, rotateY(shoulderRight_j.yTheta));
+            m = mult(m, rotateZ(shoulderRight_j.zTheta));
             figure[14] = createNode(m, drawHumanUpperArmRight, 17, 16);
             break;            
         
