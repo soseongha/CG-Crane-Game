@@ -29,6 +29,7 @@ var stack =[];
 var figure = [];
 /**-------------------------- */
  
+var returnButton = false;
 //Crane
 var torsoHeight = 10;
 var torsoX = 0.0;
@@ -112,6 +113,10 @@ window.onload = function init()
 
     document.getElementById("Green").onclick = function(){
         green = true;
+    };
+
+    document.getElementById("Return").onclick = function(){
+        returnButton = true;
     };
 
     //scrollbar delete
@@ -236,10 +241,17 @@ function render() {
     cameraMatrix = mult(cameraMatrix, rotateX(phi));
     modelViewMatrix = inverse4(cameraMatrix);
     
+    if(returnButton){
+        redBall = {x: 40, y: -100, z: -20};
+        blueBall = {x: -70, y: -100, z: -20};
+        greenBall = {x: -30, y: -100, z:0};
 
-    // var eye = vec3(modelViewMatrix[0][3], modelViewMatrix[1][3], modelViewMatrix[2][3]);
-    // var
-    // modelViewMatrix = lookAt(eye,vec3(0,0,0),vec3(0,1,0));
+        torsoHeight = 10;
+        torsoX = 0.0;
+        torsoZ = 0.0;
+
+        returnButton = false;
+    }
 
     if(goZero){
         returnToZero();
@@ -274,25 +286,6 @@ function render() {
     if(swaying){
         sway();
     }
-
-    // if(redraw){
-    //     //change camera view
-        
-
-    //     dx = 0.05 *(lastX-x);
-    //     dy = 0.05 *(lastY-y);
-    //     theta += dx;
-    //     phi += dy;
-        
-    //     temp = modelViewMatrix;
-
-    //     lastX = x;
-    //     lastY = y;
-    //     redraw = false;
-    // }else{
-    //     //load camera view
-    //     modelViewMatrix = temp;
-    // }
 
     //modelViewMatrix save
     var old_modelViewMatrix = modelViewMatrix;
