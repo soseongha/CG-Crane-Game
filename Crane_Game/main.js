@@ -250,6 +250,25 @@ function render() {
         torsoX = 0.0;
         torsoZ = 0.0;
 
+        head_j = {theta: 0, axis: vec3(1,1,0)}; 
+        shoulderLeft_j = {xTheta: 0, yTheta: 0, zTheta:-30}; 
+        shoulderRight_j = {xTheta: 0, yTheta: 0, zTheta:30}; 
+        elbowLeft_j = {theta: 60}; 
+        elbowRight_j = {theta: -60}; 
+        waist_j = {theta: 0, axis: vec3(0,-1,0)};
+        thighLeft_j = {theta: 0, axis: vec3(1,0,0)}; 
+        thighRight_j = {theta: 0, axis: vec3(1,0,0)}; 
+        kneeLeft_j = {theta: 0};
+        kneeRight_j = {theta: 0}; 
+        ankleLeft_j = {theta: 0, axis: vec3(1,1,0)}; 
+        ankleRight_j = {theta: 0, axis: vec3(1,1,0)};
+
+        sway_count = 0;
+
+        cameraX = 0.0;
+        cameraY = 0.0;
+        cameraZ = 0.1;
+
         returnButton = false;
     }
 
