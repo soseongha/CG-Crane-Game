@@ -119,9 +119,9 @@ function moveCrane(){
             }
             else{
                 torsoZ = 1.0;
-                if(red_j) redBall.z = 1.0;
-                else if(green_j) greenBall.z = 1.0;
-                else if(blue_j) blueBall.z = 1.0;
+                // if(red_j) redBall.z = 1.0;
+                // else if(green_j) greenBall.z = 1.0;
+                // else if(blue_j) blueBall.z = 1.0;
 
                 if(torsoX<12){
                     torsoX += 0.05;
