@@ -52,26 +52,29 @@ function returnToZero(){
 
 var pickBall = false;
 var judging = true;
+var red_j = false; //button true/false
+var blue_j = false; //button true/false
+var green_j = false; //button true/false
 
 function moveCrane(){
 
     if(torsoX >= 2.35 && torsoX <= 3.05){
         if(torsoZ >= -1.4 && torsoZ <= -1.0){
             if(judging && !ballMoved.red){
-                red = true;
+                red_j = true;
             }
         }
     }
     else if(torsoX >= -2.65 && torsoX <= -1.95){
         if(torsoZ >= -0.2 && torsoZ <= 0.2){
             if(judging && !ballMoved.green){
-                green = true;
+                green_j = true;
             }
         }
     }else if(torsoX >= -5.05 && torsoX <= -4.35){
         if(torsoZ >= -1.4  && torsoZ <= -1.0){
             if(judging && !ballMoved.blue){
-                blue = true;
+                blue_j = true;
             }
         }
     }
@@ -88,9 +91,9 @@ function moveCrane(){
         else{
             if(!isPicking){
                 moveCraneAngle();
-                if(red && pickBall) redBall.y += 0.2;
-                else if(green && pickBall) greenBall.y += 0.2;   
-                else if(blue && pickBall) blueBall.y += 0.2;   
+                if(red_j && pickBall) redBall.y += 0.2;
+                else if(green_j && pickBall) greenBall.y += 0.2;   
+                else if(blue_j && pickBall) blueBall.y += 0.2;   
             }
             else{
                 isAscent = true;
@@ -100,9 +103,9 @@ function moveCrane(){
 
         if(torsoHeight<10 && !isdescent){
             torsoHeight += 0.05;
-            if(red) redBall.y += 0.65;
-            else if(green) greenBall.y += 0.65;  
-            else if(blue) blueBall.y += 0.65;
+            if(red_j) redBall.y += 0.65;
+            else if(green_j) greenBall.y += 0.65;  
+            else if(blue_j) blueBall.y += 0.65;
             // cameraY -= 0.001;
         }
         else
@@ -110,38 +113,38 @@ function moveCrane(){
             isdescent = true;
             if(torsoZ<1.0){
                 torsoZ += 0.01;
-                if(red) redBall.z += 0.3;
-                else if(green) greenBall.z += 0.3;
-                else if(blue) blueBall.z += 0.3;
+                if(red_j) redBall.z += 0.3;
+                else if(green_j) greenBall.z += 0.3;
+                else if(blue_j) blueBall.z += 0.3;
             }
             else{
                 torsoZ = 1.0;
-                if(red) redBall.z = 1.0;
-                else if(green) greenBall.z = 1.0;
-                else if(blue) blueBall.z = 1.0;
+                if(red_j) redBall.z = 1.0;
+                else if(green_j) greenBall.z = 1.0;
+                else if(blue_j) blueBall.z = 1.0;
 
                 if(torsoX<12){
                     torsoX += 0.05;
-                    if(red) redBall.x += 0.7;
-                    else if(green) greenBall.x += 0.7;
-                    else if(blue) blueBall.x += 0.7;
+                    if(red_j) redBall.x += 0.7;
+                    else if(green_j) greenBall.x += 0.7;
+                    else if(blue_j) blueBall.x += 0.7;
                     // cameraX += 0.0005;
                 } 
                 else{
                     if(torsoHeight>2.5)
                     {
                         torsoHeight -= 0.1;
-                        if(red) redBall.y -= 1.4;
-                        else if(green) greenBall.y -= 1.4;
-                        else if(blue) blueBall.y -= 1.4;
+                        if(red_j) redBall.y -= 1.4;
+                        else if(green_j) greenBall.y -= 1.4;
+                        else if(blue_j) blueBall.y -= 1.4;
                         // cameraY += 0.001;
                     }  
                     else{
-                        if(red){
+                        if(red_j){
                             moving = returnCraneAngle("red");
-                        }else if(green){
+                        }else if(green_j){
                             moving = returnCraneAngle("green");
-                        }else if(blue){
+                        }else if(blue_j){
                             moving = returnCraneAngle("blue");
                         }else{
                             moving = returnCraneAngle("none");
@@ -153,170 +156,170 @@ function moveCrane(){
         }
     }
 }
-// function redCrane(){
-//     if(!isAscent)
-//         {
-//             if(torsoZ>-1.2){
-//                 torsoZ -= 0.1;
-//             }else{
-//                 if(torsoX<3){
-//                     torsoX += 0.1;
-//                      //cameraX -= 0.001;
-//                 }else{
-//                     if(torsoHeight>1){
-//                         torsoHeight -= 0.1;
-//                         // cameraY += 0.0005;
-//                         // cameraZ += 0.001;
-//                     }
-//                     else{
-//                         if(!isPicking){
-//                             moveCraneAngle();
-//                             if(pickBall)
-//                             redBall.y += 0.2;
+function redCrane(){
+    if(!isAscent)
+        {
+            if(torsoZ>-1.2){
+                torsoZ -= 0.1;
+            }else{
+                if(torsoX<3){
+                    torsoX += 0.1;
+                     //cameraX -= 0.001;
+                }else{
+                    if(torsoHeight>1){
+                        torsoHeight -= 0.1;
+                        // cameraY += 0.0005;
+                        // cameraZ += 0.001;
+                    }
+                    else{
+                        if(!isPicking){
+                            moveCraneAngle();
+                            if(pickBall)
+                            redBall.y += 0.2;
                             
-//                         }
-//                         else
-//                             isAscent = true;
-//                     }    
-//                 }
-//             }
+                        }
+                        else
+                            isAscent = true;
+                    }    
+                }
+            }
             
-//         }else{
-//             if(torsoHeight<10 && !isdescent){
-//                 torsoHeight += 0.05;
-//                 redBall.y += 0.65;
-//                 // cameraY -= 0.001;
-//             }
-//             else
-//             {
-//                 isdescent = true;
-//                 if(torsoZ<1.0){
-//                     torsoZ += 0.01;
-//                     redBall.z += 0.3;
-//                 }else{
-//                     torsoZ = 1.0;
-//                     // redBall.z = 1.0;
-//                     if(torsoX<12){
-//                         torsoX += 0.05;
-//                         redBall.x += 0.7;
-//                         // cameraX += 0.0005;
-//                     } 
-//                     else{
-//                         if(torsoHeight>2.5)
-//                         {
-//                             torsoHeight -= 0.1;
-//                             redBall.y -= 1.4;
-//                             // cameraY += 0.001;
-//                         }  
-//                         else
-//                             red = returnCraneAngle("red");
-//                     }
-//                 }
+        }else{
+            if(torsoHeight<10 && !isdescent){
+                torsoHeight += 0.05;
+                redBall.y += 0.65;
+                // cameraY -= 0.001;
+            }
+            else
+            {
+                isdescent = true;
+                if(torsoZ<1.0){
+                    torsoZ += 0.01;
+                    redBall.z += 0.3;
+                }else{
+                    torsoZ = 1.0;
+                    // redBall.z = 1.0;
+                    if(torsoX<12){
+                        torsoX += 0.05;
+                        redBall.x += 0.7;
+                        // cameraX += 0.0005;
+                    } 
+                    else{
+                        if(torsoHeight>2.5)
+                        {
+                            torsoHeight -= 0.1;
+                            redBall.y -= 1.4;
+                            // cameraY += 0.001;
+                        }  
+                        else
+                            red = returnCraneAngle("red");
+                    }
+                }
                
-//             }
-//         }
-// }
+            }
+        }
+}
 
-// function blueCrane(){
-//     if(!isAscent)
-//     {
-//         if(torsoZ>-1.2){
-//             torsoZ -= 0.1;
-//         }else{
-//             if(torsoX>-5){
-//                 torsoX -= 0.1;
-//             }else{
-//                 if(torsoHeight>1)
-//                     torsoHeight -= 0.1;
-//                 else{
-//                     if(!isPicking){
-//                         moveCraneAngle();
-//                         if(pickBall)
-//                             blueBall.y += 0.2;
-//                     }
-//                     else
-//                         isAscent = true;
-//                 }    
-//             }
-//         }
+function blueCrane(){
+    if(!isAscent)
+    {
+        if(torsoZ>-1.2){
+            torsoZ -= 0.1;
+        }else{
+            if(torsoX>-5){
+                torsoX -= 0.1;
+            }else{
+                if(torsoHeight>1)
+                    torsoHeight -= 0.1;
+                else{
+                    if(!isPicking){
+                        moveCraneAngle();
+                        if(pickBall)
+                            blueBall.y += 0.2;
+                    }
+                    else
+                        isAscent = true;
+                }    
+            }
+        }
        
-//     }else{
-//         if(torsoHeight<10 && !isdescent){
-//             torsoHeight += 0.05;
-//             blueBall.y += 0.65;
-//         }
-//         else
-//         {
-//             isdescent = true;
-//             if(torsoZ<1.0){
-//                 torsoZ += 0.01;
-//                 blueBall.z += 0.3; 
-//             }else{
-//                 torsoZ = 1.0;
-//                 if(torsoX<12){
-//                     torsoX += 0.05;
-//                     blueBall.x += 0.7;
-//                 }
+    }else{
+        if(torsoHeight<10 && !isdescent){
+            torsoHeight += 0.05;
+            blueBall.y += 0.65;
+        }
+        else
+        {
+            isdescent = true;
+            if(torsoZ<1.0){
+                torsoZ += 0.01;
+                blueBall.z += 0.3; 
+            }else{
+                torsoZ = 1.0;
+                if(torsoX<12){
+                    torsoX += 0.05;
+                    blueBall.x += 0.7;
+                }
                    
-//                 else{
-//                     if(torsoHeight>2.5){
-//                         torsoHeight -= 0.1;
-//                         blueBall.y -= 1.4;
-//                     }
-//                     else
-//                         blue = returnCraneAngle("blue");
-//                 }
-//             }
-//         }
-//     }
-// }
+                else{
+                    if(torsoHeight>2.5){
+                        torsoHeight -= 0.1;
+                        blueBall.y -= 1.4;
+                    }
+                    else
+                        blue = returnCraneAngle("blue");
+                }
+            }
+        }
+    }
+}
 
-// function greenCrane(){
-//     if(!isAscent)
-//     {
-//         if(torsoX>-2){
-//             torsoX -= 0.1;
-//         }else{
-//             if(torsoHeight>1)
-//                 torsoHeight -= 0.1;
-//             else{
-//                 if(!isPicking)
-//                 {
-//                     moveCraneAngle();
-//                     if(pickBall)
-//                             greenBall.y += 0.2;
+function greenCrane(){
+    if(!isAscent)
+    {
+        if(torsoX>-2){
+            torsoX -= 0.1;
+        }else{
+            if(torsoHeight>1)
+                torsoHeight -= 0.1;
+            else{
+                if(!isPicking)
+                {
+                    moveCraneAngle();
+                    if(pickBall)
+                            greenBall.y += 0.2;
                     
-//                 }
-//                 else
-//                     isAscent = true;
-//             }    
-//         }
-//     }else{
-//         if(torsoHeight<10 && !isdescent){
-//             torsoHeight += 0.05;
-//             greenBall.y += 0.65;
-//         }
-//         else
-//         {
-//             isdescent = true;
-//             if(torsoZ<1.0){
-//                 torsoZ += 0.01;
-//                 greenBall.z += 0.3; 
-//             }else{
-//             if(torsoX<12){
-//                 torsoX += 0.05;
-//                 greenBall.x += 0.7;
-//             }
-//             else{
-//                 if(torsoHeight>2.5){
-//                     torsoHeight -= 0.1;
-//                     greenBall.y -= 1.4;
-//                 }else
-//                     green = returnCraneAngle("green");
-//             }}
-//         }
-//     }
-// }
+                }
+                else
+                    isAscent = true;
+            }    
+        }
+    }else{
+        if(torsoHeight<10 && !isdescent){
+            torsoHeight += 0.05;
+            greenBall.y += 0.65;
+        }
+        else
+        {
+            isdescent = true;
+            if(torsoZ<1.0){
+                torsoZ += 0.01;
+                greenBall.z += 0.3; 
+            }else{
+            if(torsoX<12){
+                torsoX += 0.05;
+                greenBall.x += 0.7;
+            }
+            else{
+                if(torsoHeight>2.5){
+                    torsoHeight -= 0.1;
+                    greenBall.y -= 1.4;
+                }else
+                    green = returnCraneAngle("green");
+            }}
+        }
+    }
+}
 
 
 function moveCraneAngle(){
@@ -354,9 +357,9 @@ function returnCraneAngle(ball_color){
                 isdescent = false;
                 isPicking = false;
                 pickBall = false;
-                if(ball_color == "red") {ballMoved.red = true; red = false;}
-                else if(ball_color == "green") {ballMoved.green = true; green = false;}
-                else if(ball_color == "blue") {ballMoved.blue = true; blue = false;}
+                if(ball_color == "red") {ballMoved.red = true; red = false; red_j = false;}
+                else if(ball_color == "green") {ballMoved.green = true; green = false; green_j = false;}
+                else if(ball_color == "blue") {ballMoved.blue = true; blue = false; blue_j = false;}
                 return false;
 
             }

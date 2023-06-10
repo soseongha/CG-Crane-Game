@@ -102,17 +102,17 @@ window.onload = function init()
         redraw = true;
     });
 
-    // document.getElementById("Red").onclick = function(){
-    //     red = true;
-    // };
+    document.getElementById("Red").onclick = function(){
+        red = true;
+    };
 
-    // document.getElementById("Blue").onclick = function(){
-    //     blue = true;
-    // };
+    document.getElementById("Blue").onclick = function(){
+        blue = true;
+    };
 
-    // document.getElementById("Green").onclick = function(){
-    //     green = true;
-    // };
+    document.getElementById("Green").onclick = function(){
+        green = true;
+    };
 
     //scrollbar delete
     //document.body.style.overflow = "hidden";
@@ -129,16 +129,24 @@ window.onload = function init()
             judging = true;
         }
         else if(e.key == 37 || e.key == "ArrowRight") {
-            torsoX += 0.1;
+            if(torsoX < 10){
+                torsoX += 0.1;
+            }
         }
         else if(e.key == 39 || e.key == "ArrowLeft") {
-            torsoX -= 0.1;
+            if(torsoX > -10){
+                torsoX -= 0.1;
+            }
         }
         else if(e.key == 38 || e.key == "ArrowUp") {
-            torsoZ -= 0.1;
+            if(torsoZ > -5){
+                torsoZ -= 0.1;
+            }
         }
         else if(e.key == 40 || e.key == "ArrowDown") {
-            torsoZ += 0.1;
+            if(torsoZ < 0){
+                torsoZ += 0.1;
+            }
         }
         labelX.innerText = torsoX;
         labelZ.innerText = torsoZ;
@@ -237,17 +245,17 @@ function render() {
         returnToZero();
     }
 
-    // if(red){
-    //     redCrane();
-    // }
+    if(red){
+        redCrane();
+    }
 
-    // if(blue){
-    //     blueCrane();
-    // }
+    if(blue){
+        blueCrane();
+    }
 
-    // if(green){
-    //     greenCrane();
-    // }
+    if(green){
+        greenCrane();
+    }
 
     if(moving){
         moveCrane();
